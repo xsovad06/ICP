@@ -19,12 +19,16 @@ public:
     ~MainWindow();
 
 private:
+    void init_scene();
     Ui::MainWindow *ui;
     QTimer *myTimer;
     QTime *myTime;
     int timeSpeed;
 
 private slots:
+    void zoom_in();
+    void zoom_out();
+    void zoom_slider(int n);
     void startTimer();
     void onTimer();
     void speedUp();

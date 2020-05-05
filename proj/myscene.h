@@ -2,6 +2,12 @@
 #define MYSCENE_H
 
 #include <QGraphicsScene>
+#include "mylineitem.h"
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QDebug>
+#include <QFile>
 
 class MyScene : public QGraphicsScene
 {
@@ -14,7 +20,15 @@ public:
     void createStreet4(QColor street_color = nullptr);
     void createStreet5(QColor street_color = nullptr);
 
+
+    QString toJson();
+    void toFile();
+    void fromFile();
+    void loadLines();
 protected:
+    QList <MyLineItem*> lineList;
+    QList<QLine> loadedLines;
+
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     //virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
     //virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;

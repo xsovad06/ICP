@@ -23,7 +23,7 @@ private:
     Ui::MainWindow *ui;
     QTimer *myTimer;
     QTime *myTime;
-    int timeSpeed;
+    float timeSpeed;
 
 private slots:
     void zoom_in();

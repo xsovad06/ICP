@@ -19,6 +19,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     init_scene();
 
+    /*auto myscene= dynamic_cast<MyScene*>(ui->graphicsView->scene());
+    if(myscene)
+    {
+        myscene->toFile();
+    }*/
+
+
+
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
     connect(ui->zoom_slider, SIGNAL(valueChanged(int)), this, SLOT(zoom_slider(int)));
@@ -46,11 +54,14 @@ void MainWindow::init_scene()
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-    map_scene->createStreet1();
+  /*  map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
     map_scene->createStreet4(Qt::yellow);
-    map_scene->createStreet5(Qt::green);
+    map_scene->createStreet5(Qt::green);*/
+
+
+    map_scene->loadLines();
 }
 
 void MainWindow::zoom_in()
@@ -95,7 +106,7 @@ void  MainWindow::onTimer()
 {
     QString str = myTime->toString("hh : mm : ss");
     ui->timeShowLab->setText(str);
-    *myTime=myTime->addSecs(timeSpeed);
+    *myTime=myTime->addMSecs(1000*timeSpeed);
 }
 void MainWindow::speedUp()
 {

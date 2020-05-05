@@ -1,5 +1,4 @@
 #include "myscene.h"
-#include "mylineitem.h"
 #include <QDebug>
 #include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
@@ -48,6 +47,16 @@ void MyScene::createStreet1(QColor street_color)
     addItem(line7);
     addItem(line8);
     addItem(line9);
+
+    lineList<<line1;
+    lineList<<line2;
+    lineList<<line3;
+    lineList<<line4;
+    lineList<<line5;
+    lineList<<line6;
+    lineList<<line7;
+    lineList<<line8;
+    lineList<<line9;
 }
 
 void MyScene::createStreet2(QColor street_color)
@@ -68,6 +77,11 @@ void MyScene::createStreet2(QColor street_color)
     addItem(line4);
     addItem(line5);
 
+    lineList<<line1;
+    lineList<<line2;
+    lineList<<line3;
+    lineList<<line4;
+    lineList<<line5;
 }
 
 void MyScene::createStreet3(QColor street_color)
@@ -93,6 +107,14 @@ void MyScene::createStreet3(QColor street_color)
     addItem(line5);
     addItem(line6);
     addItem(line7);
+
+    lineList<<line1;
+    lineList<<line2;
+    lineList<<line3;
+    lineList<<line4;
+    lineList<<line5;
+    lineList<<line6;
+    lineList<<line7;
 }
 void MyScene::createStreet4(QColor street_color)
 {
@@ -120,6 +142,15 @@ void MyScene::createStreet4(QColor street_color)
     addItem(line6);
     addItem(line7);
     addItem(line8);
+
+    lineList<<line1;
+    lineList<<line2;
+    lineList<<line3;
+    lineList<<line4;
+    lineList<<line5;
+    lineList<<line6;
+    lineList<<line7;
+    lineList<<line8;
 }
 
 void MyScene::createStreet5(QColor street_color)
@@ -145,4 +176,88 @@ void MyScene::createStreet5(QColor street_color)
     addItem(line5);
     addItem(line6);
     addItem(line7);
+
+    lineList<<line1;
+    lineList<<line2;
+    lineList<<line3;
+    lineList<<line4;
+    lineList<<line5;
+    lineList<<line6;
+    lineList<<line7;
 }
+
+//convert lines form MyScene->lineList to json QString
+QString MyScene::toJson()
+{
+    QJsonDocument jDoc;
+    QJsonObject jObj;
+    QJsonArray jArr;
+
+    for(auto itm:lineList)
+    {
+        jArr.append(QJsonObject({{"x1",itm->line().x1()},{"y1",itm->line().y1()},
+                                 {"x2",itm->line().x2()},{"y2",itm->line().y2()}}));
+    }
+    jObj={{"lines",jArr}};
+    jDoc.setObject(jObj);
+    return jDoc.toJson(QJsonDocument::Compact);
+}
+// save json QString to file
+void MyScene::toFile()
+{
+    QString str=toJson();
+    QFile file("json.txt");
+    if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream stream(&file);
+        stream << str;
+        file.close();
+    }
+}
+//load lines from file to MyScene::loadedLines
+void MyScene::fromFile()
+{
+    QString str=toJson();
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QByteArray data = file.readAll();
+        file.close();
+        QJsonDocument jDoc = QJsonDocument::fromJson(data);
+        QJsonObject jObj = jDoc.object();
+        QJsonArray posArr = jObj.value("lines").toArray();
+        foreach(const QJsonValue & val, posArr)
+        {
+            int x1=val.toObject().value("x1").toInt();
+            int x2=val.toObject().value("x2").toInt();
+            int y1=val.toObject().value("y1").toInt();
+            int y2=val.toObject().value("y2").toInt();
+            loadedLines<<QLine(x1,y1,x2,y2);
+        }
+    }
+}
+
+//add lines from MyScene::loadedLines to scene
+void MyScene::loadLines()
+{
+    fromFile();
+    for(auto line : loadedLines)
+    {
+        addLine(line);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

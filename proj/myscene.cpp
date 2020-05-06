@@ -214,44 +214,20 @@ void MyScene::toFile()
         file.close();
     }
 }
-//load lines from file to MyScene::loadedLines
-void MyScene::fromFile()
-{
-    QString str=toJson();
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QByteArray data = file.readAll();
-        file.close();
-        QJsonDocument jDoc = QJsonDocument::fromJson(data);
-        QJsonObject jObj = jDoc.object();
-        QJsonArray posArr = jObj.value("lines").toArray();
-        foreach(const QJsonValue & val, posArr)
-        {
-            int x1=val.toObject().value("x1").toInt();
-            int x2=val.toObject().value("x2").toInt();
-            int y1=val.toObject().value("y1").toInt();
-            int y2=val.toObject().value("y2").toInt();
-            loadedLines<<QLine(x1,y1,x2,y2);
-        }
-    }
-}
 
-//add lines from MyScene::loadedLines to scene
-void MyScene::loadLines()
-{
-    fromFile();
-    for(auto line : loadedLines)
-    {
-        auto line_1 = new MyLineItem(Qt::gray);
-        line_1->setLine(line);
-        addItem(line_1);
-        //addLine(line);
-    }
-    /*auto virtual_line = new MyLineItem();
-    virtual_line->paint_ellipse(, 600, 175);
-     line7->setLine(485,150,600,175);
-     line8->setLine(590,315,630,387);
-     line7->setLine(500,45,580,30);
-     line9->setLine(500,47,580,32);*/
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

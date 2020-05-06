@@ -4,8 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsLineItem>
 #include <QDebug>
-#include "myscene.h"
-#include "mylineitem.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     init_scene();
 
-    /*auto myscene= dynamic_cast<MyScene*>(ui->graphicsView->scene());
+   /* auto myscene= dynamic_cast<MyScene*>(ui->graphicsView->scene());
     if(myscene)
     {
         myscene->toFile();
@@ -61,7 +60,17 @@ void MainWindow::init_scene()
     map_scene->createStreet5(Qt::green);*/
 
 
-    map_scene->loadLines();
+    //map_scene->loadLines();
+
+    setPaths();
+    for(int i=0;i<paths.size();++i)
+    {
+        foreach(QGraphicsItem *line, paths.at(i)->getPath().keys())
+        {
+            map_scene->addItem(line);
+        }
+    }
+
 }
 
 void MainWindow::zoom_in()
@@ -130,7 +139,69 @@ void MainWindow::speedReverse()
     ui->timeSpdLab->setText(speed);
 }
 
+void MainWindow::loadLinesfromFile()
+{
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QByteArray data = file.readAll();
+        file.close();
+        QJsonDocument jDoc = QJsonDocument::fromJson(data);
+        QJsonObject jObj = jDoc.object();
+        QJsonArray posArr = jObj.value("lines").toArray();
+        foreach(const QJsonValue & val, posArr)
+        {
+            int x1=val.toObject().value("x1").toInt();
+            int x2=val.toObject().value("x2").toInt();
+            int y1=val.toObject().value("y1").toInt();
+            int y2=val.toObject().value("y2").toInt();
+            loadedLines<<QLine(x1,y1,x2,y2);
+        }
+    }
+}
 
+
+void MainWindow::setPaths()
+{
+    loadLinesfromFile();
+    int i=0;
+    QList<QLine> lineGroup1;
+    QList<QLine> lineGroup2;
+    QList<QLine> lineGroup3;
+    QList<QLine> lineGroup4;
+    QList<QLine> lineGroup5;
+    for(auto line : loadedLines)
+    {
+        if(i<9)
+        {
+            lineGroup1<<line;
+        }
+        else if(i<14)
+        {
+            lineGroup2<<line;
+        }
+        else if(i<21)
+        {
+            lineGroup3<<line;
+        }
+        else if(i<29)
+        {
+            lineGroup4<<line;
+        }
+        else if(i<37)
+        {
+            lineGroup5<<line;
+        }
+        ++i;
+    }
+        auto path1 = new Path("p1",lineGroup1,Qt::blue);
+        auto path2 = new Path("p2",lineGroup2,Qt::red);
+        auto path3 = new Path("p3",lineGroup3,Qt::green);
+        auto path4 = new Path("p4",lineGroup4,Qt::yellow);
+        auto path5 = new Path("p5",lineGroup5,Qt::darkGray);
+
+        paths<<path1<<path2<<path3<<path4<<path5;
+}
 
 
 

@@ -23,11 +23,9 @@ public:
 
     QString toJson();
     void toFile();
-    void fromFile();
-    void loadLines();
 protected:
     QList <MyLineItem*> lineList;
-    QList<QLine> loadedLines;
+
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     //virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;

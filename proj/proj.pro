@@ -19,12 +19,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mylineitem.cpp \
-    myscene.cpp
+    myscene.cpp \
+    path.cpp
 
 HEADERS += \
     mainwindow.h \
     mylineitem.h \
-    myscene.h
+    myscene.h \
+    path.h
 
 FORMS += \
     mainwindow.ui

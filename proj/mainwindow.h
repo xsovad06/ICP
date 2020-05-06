@@ -3,6 +3,10 @@
 #include <QDebug>
 #include <QTimer>
 #include <QDateTime>
+#include "myscene.h"
+#include "mylineitem.h"
+#include "path.h"
+#include <QJsonDocument>
 
 #include <QMainWindow>
 
@@ -18,12 +22,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void loadLinesfromFile();
+    void setPaths();
+
 private:
     void init_scene();
     Ui::MainWindow *ui;
     QTimer *myTimer;
     QTime *myTime;
     float timeSpeed;
+
+    QList<QLine> loadedLines;
+    QVector <Path*> paths;
 
 private slots:
     void zoom_in();

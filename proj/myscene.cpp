@@ -218,7 +218,7 @@ void MyScene::toFile()
 void MyScene::fromFile()
 {
     QString str=toJson();
-    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();
@@ -243,21 +243,15 @@ void MyScene::loadLines()
     fromFile();
     for(auto line : loadedLines)
     {
-        addLine(line);
+        auto line_1 = new MyLineItem(Qt::gray);
+        line_1->setLine(line);
+        addItem(line_1);
+        //addLine(line);
     }
+    /*auto virtual_line = new MyLineItem();
+    virtual_line->paint_ellipse(, 600, 175);
+     line7->setLine(485,150,600,175);
+     line8->setLine(590,315,630,387);
+     line7->setLine(500,45,580,30);
+     line9->setLine(500,47,580,32);*/
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

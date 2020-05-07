@@ -14,13 +14,13 @@ public:
     //explicit Path(QObject *parent = nullptr);
     Path(QString newName,QList<QLine> lines, QColor clr=Qt::black, QObject *parent = nullptr);
     int getSize();
-    QMap <MyLineItem*,int> getPath();
+    QList <MyLineItem*> getPath();
     QString getName();
 
 private:
     QString name;
     //roads 1 by 1 with their times
-    QMap <MyLineItem*,int> path;
+    QList <MyLineItem*> path;
     int size;
 };
 

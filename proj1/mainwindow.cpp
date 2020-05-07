@@ -66,13 +66,9 @@ void MainWindow::init_scene()
     for(int i=0;i<paths.size();++i)
     {
         int ttime=0;
-        foreach(QGraphicsItem *line, paths.at(i)->getPath().keys())
+        foreach(QGraphicsItem *line, paths.at(i)->getPath())
         {
             map_scene->addItem(line);
-        }
-        foreach(int sec, paths.at(i)->getPath().values())
-        {
-            ttime+=sec;
         }
         qDebug()<<ttime;
     }
@@ -147,7 +143,7 @@ void MainWindow::speedReverse()
 
 void MainWindow::loadLinesfromFile()
 {
-    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj1/json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

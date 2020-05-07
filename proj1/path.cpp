@@ -9,8 +9,8 @@ Path::Path(QString newName,QList<QLine> lines, QColor clr, QObject *parent) : QO
         ++i;
         auto *myline = new MyLineItem(clr);
         myline->setLine(line);
-        int timeInSec = sqrt(line.dy()*line.dy()+line.dx()*line.dx());
-        this->path.insert(myline,timeInSec);
+        //int timeInSec = sqrt(line.dy()*line.dy()+line.dx()*line.dx());
+        this->path<<myline;
     }
     this->size=i;
 }
@@ -19,7 +19,7 @@ int Path::getSize()
 {
     return this->size;
 }
-QMap <MyLineItem*,int> Path::getPath()
+QList <MyLineItem*> Path::getPath()
 {
     return path;
 }

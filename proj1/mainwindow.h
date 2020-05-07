@@ -31,6 +31,7 @@ private:
     QTimer *myTimer;
     QTime *myTime;
     float timeSpeed;
+    bool timeRev=false;
 
     QList<QLine> loadedLines;
     QVector <Path*> paths;

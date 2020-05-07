@@ -10,11 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    timeSpeed=1;
     ui->setupUi(this);
     myTimer = new QTimer(this);
-    myTimer->setInterval(1000);
+    myTimer->setInterval(1000/timeSpeed);
     myTime=new QTime(0,0,0);
-    timeSpeed=1;
+
 
     init_scene();
 
@@ -117,7 +118,16 @@ void  MainWindow::onTimer()
 {
     QString str = myTime->toString("hh : mm : ss");
     ui->timeShowLab->setText(str);
-    *myTime=myTime->addMSecs(1000*timeSpeed);
+    if(timeRev)
+    {
+        *myTime=myTime->addMSecs(-1000);
+    }
+    else
+    {
+        *myTime=myTime->addMSecs(1000);
+    }
+
+    myTimer->setInterval(1000/timeSpeed);
 }
 void MainWindow::speedUp()
 {
@@ -135,10 +145,7 @@ void MainWindow::speedDown()
 }
 void MainWindow::speedReverse()
 {
-    timeSpeed*=-1;
-    QString speed;
-    QTextStream(&speed)<<timeSpeed;
-    ui->timeSpdLab->setText(speed);
+    timeRev=!timeRev;
 }
 
 void MainWindow::loadLinesfromFile()

@@ -20,5 +20,5 @@ void MyLineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawLine(line());
     painter->setPen(QPen({Qt::blue},5));
     painter->drawEllipse(line().pointAt(0), 2, 2);
-    painter->drawEllipse(line().pointAt(1), 2, 2);
+    //painter->drawEllipse(line().pointAt(1), 2, 2);
 }

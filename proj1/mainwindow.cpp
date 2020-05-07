@@ -10,12 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    timeSpeed=1;
+    timeSpeed = 1;
     ui->setupUi(this);
     myTimer = new QTimer(this);
     myTimer->setInterval(1000/timeSpeed);
     myTime=new QTime(0,0,0);
-
 
     init_scene();
 
@@ -36,11 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->spdUpBtn,SIGNAL(clicked()),this,SLOT(speedUp()));
     connect(ui->spdDownBtn,SIGNAL(clicked()),this,SLOT(speedDown()));
     connect(ui->spdRevBtn,SIGNAL(clicked()),this,SLOT(speedReverse()));
-
-
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -54,26 +48,24 @@ void MainWindow::init_scene()
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-  /*  map_scene->createStreet1();
+/*  Create map in case of creating json file
+    map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
     map_scene->createStreet4(Qt::yellow);
-    map_scene->createStreet5(Qt::green);*/
+    map_scene->createStreet5(Qt::green);
 
+    map_scene->loadLines();*/
 
-    //map_scene->loadLines();
-
-    setPaths();
-    for(int i=0;i<paths.size();++i)
+    map_scene->setPaths();
+    for(int i=0;i<map_scene->getPaths().size();++i)
     {
-        int ttime=0;
-        foreach(QGraphicsItem *line, paths.at(i)->getPath())
+        foreach(QGraphicsItem *line, map_scene->getPaths().at(i)->getPath())
         {
             map_scene->addItem(line);
         }
-        qDebug()<<ttime;
+        qDebug()<< "Total time in sec: " << map_scene->getPaths().at(i)->getTotalTime();
     }
-
 }
 
 void MainWindow::zoom_in()
@@ -101,15 +93,12 @@ void MainWindow::zoom_slider(int n)
     ui->graphicsView->setTransform(QTransform(scale, original_matrix.m12(), original_matrix.m21(), scale, original_matrix.dx(), original_matrix.dy()));
 }
 
-
 void MainWindow::startTimer()
 {
-    if(!myTimer->isActive())
-    {
+    if(!myTimer->isActive()) {
         myTimer->start();
     }
-    else
-    {
+    else {
         myTimer->stop();
     }
 }
@@ -118,17 +107,16 @@ void  MainWindow::onTimer()
 {
     QString str = myTime->toString("hh : mm : ss");
     ui->timeShowLab->setText(str);
-    if(timeRev)
-    {
+    if(timeRev) {
         *myTime=myTime->addMSecs(-1000);
     }
-    else
-    {
+    else {
         *myTime=myTime->addMSecs(1000);
     }
 
     myTimer->setInterval(1000/timeSpeed);
 }
+
 void MainWindow::speedUp()
 {
     timeSpeed*=2;
@@ -136,6 +124,7 @@ void MainWindow::speedUp()
     QTextStream(&speed)<<timeSpeed;
     ui->timeSpdLab->setText(speed);
 }
+
 void MainWindow::speedDown()
 {
     timeSpeed/=2;
@@ -143,75 +132,11 @@ void MainWindow::speedDown()
     QTextStream(&speed)<<timeSpeed;
     ui->timeSpdLab->setText(speed);
 }
+
 void MainWindow::speedReverse()
 {
-    timeRev=!timeRev;
+   timeRev=!timeRev;
 }
-
-void MainWindow::loadLinesfromFile()
-{
-    QFile file("/home/ixpo-u/Plocha/skola/icp/proj1/json.txt");
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QByteArray data = file.readAll();
-        file.close();
-        QJsonDocument jDoc = QJsonDocument::fromJson(data);
-        QJsonObject jObj = jDoc.object();
-        QJsonArray posArr = jObj.value("lines").toArray();
-        foreach(const QJsonValue & val, posArr)
-        {
-            int x1=val.toObject().value("x1").toInt();
-            int x2=val.toObject().value("x2").toInt();
-            int y1=val.toObject().value("y1").toInt();
-            int y2=val.toObject().value("y2").toInt();
-            loadedLines<<QLine(x1,y1,x2,y2);
-        }
-    }
-}
-
-
-void MainWindow::setPaths()
-{
-    loadLinesfromFile();
-    int i=0;
-    QList<QLine> lineGroup1;
-    QList<QLine> lineGroup2;
-    QList<QLine> lineGroup3;
-    QList<QLine> lineGroup4;
-    QList<QLine> lineGroup5;
-    for(auto line : loadedLines)
-    {
-        if(i<9)
-        {
-            lineGroup1<<line;
-        }
-        else if(i<14)
-        {
-            lineGroup2<<line;
-        }
-        else if(i<21)
-        {
-            lineGroup3<<line;
-        }
-        else if(i<29)
-        {
-            lineGroup4<<line;
-        }
-        else if(i<37)
-        {
-            lineGroup5<<line;
-        }
-        ++i;
-    }
-        auto path1 = new Path("p1",lineGroup1,Qt::blue);
-        auto path2 = new Path("p2",lineGroup2,Qt::red);
-        auto path3 = new Path("p3",lineGroup3,Qt::green);
-        auto path4 = new Path("p4",lineGroup4,Qt::yellow);
-        auto path5 = new Path("p5",lineGroup5,Qt::darkGray);
-
-        paths<<path1<<path2<<path3<<path4<<path5;
-}
-
 
 
 

@@ -3,17 +3,25 @@
 #include <QGraphicsLineItem>
 #include <QGraphicsSceneMouseEvent>
 
+// Constructor
 MyScene::MyScene(QObject *parent) : QGraphicsScene(parent)
-{
+{}
 
-}
-
+// Identificate appropriate route if clicked
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     for (auto *item: items(event->scenePos()))
     {
-        if (auto street = dynamic_cast<QGraphicsLineItem*>(item); street) {
-            qDebug() << "Street." << endl;
+        if (auto *street = dynamic_cast<MyLineItem*>(item); street) {
+            for(int i=0;i<paths.size();++i)
+            {
+                foreach(QGraphicsItem *line, paths.at(i)->getPath())
+                {
+                   if (line == street) {
+                       qDebug() << "Street name: " << paths.at(i)->getName() << endl;
+                   }
+                }
+            }
         }
     }
 }
@@ -116,6 +124,7 @@ void MyScene::createStreet3(QColor street_color)
     lineList<<line6;
     lineList<<line7;
 }
+
 void MyScene::createStreet4(QColor street_color)
 {
     auto *line1 = new MyLineItem(street_color);
@@ -202,7 +211,8 @@ QString MyScene::toJson()
     jDoc.setObject(jObj);
     return jDoc.toJson(QJsonDocument::Compact);
 }
-// save json QString to file
+
+// Save json QString to file
 void MyScene::toFile()
 {
     QString str=toJson();
@@ -213,6 +223,72 @@ void MyScene::toFile()
         stream << str;
         file.close();
     }
+}
+
+// Load map coordinates from file, store them to the list of lines
+void MyScene::loadLinesfromFile()
+{
+    QFile file("./json.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QByteArray data = file.readAll();
+        file.close();
+        QJsonDocument jDoc = QJsonDocument::fromJson(data);
+        QJsonObject jObj = jDoc.object();
+        QJsonArray posArr = jObj.value("lines").toArray();
+        foreach(const QJsonValue & val, posArr)
+        {
+            int x1=val.toObject().value("x1").toInt();
+            int x2=val.toObject().value("x2").toInt();
+            int y1=val.toObject().value("y1").toInt();
+            int y2=val.toObject().value("y2").toInt();
+            loadedLines<<QLine(x1,y1,x2,y2);
+        }
+    }
+}
+
+// Create vector of lists of Line items that represents appropriate path
+void MyScene::setPaths()
+{
+    loadLinesfromFile();
+    int i=0;
+    QList<QLine> lineGroup1;
+    QList<QLine> lineGroup2;
+    QList<QLine> lineGroup3;
+    QList<QLine> lineGroup4;
+    QList<QLine> lineGroup5;
+    for(auto line : loadedLines)
+    {
+        if(i<9) {
+            lineGroup1<<line;
+        }
+        else if(i<14) {
+            lineGroup2<<line;
+        }
+        else if(i<21) {
+            lineGroup3<<line;
+        }
+        else if(i<29) {
+            lineGroup4<<line;
+        }
+        else if(i<37) {
+            lineGroup5<<line;
+        }
+        ++i;
+    }
+        auto path1 = new Path("p1",lineGroup1,Qt::blue);
+        auto path2 = new Path("p2",lineGroup2,Qt::red);
+        auto path3 = new Path("p3",lineGroup3,Qt::green);
+        auto path4 = new Path("p4",lineGroup4,Qt::yellow);
+        auto path5 = new Path("p5",lineGroup5,Qt::darkGray);
+
+        paths<<path1<<path2<<path3<<path4<<path5;
+}
+
+// Return vector of paths
+QVector<Path*> MyScene::getPaths()
+{
+    return paths;
 }
 
 

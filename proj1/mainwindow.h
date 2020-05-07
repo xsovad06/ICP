@@ -22,8 +22,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void loadLinesfromFile();
-    void setPaths();
 
 private:
     void init_scene();
@@ -31,10 +29,7 @@ private:
     QTimer *myTimer;
     QTime *myTime;
     float timeSpeed;
-    bool timeRev=false;
-
-    QList<QLine> loadedLines;
-    QVector <Path*> paths;
+    bool timeRev = false;
 
 private slots:
     void zoom_in();

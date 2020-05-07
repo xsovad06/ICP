@@ -1,8 +1,8 @@
 #ifndef MYSCENE_H
 #define MYSCENE_H
 
+#include "path.h"
 #include <QGraphicsScene>
-#include "mylineitem.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -20,12 +20,16 @@ public:
     void createStreet4(QColor street_color = nullptr);
     void createStreet5(QColor street_color = nullptr);
 
-
+    void loadLinesfromFile();
+    void setPaths();
+    QVector<Path*> getPaths();
     QString toJson();
     void toFile();
-protected:
-    QList <MyLineItem*> lineList;
 
+protected:
+    QList<MyLineItem*> lineList;
+    QList<QLine> loadedLines;
+    QVector<Path*> paths;
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     //virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;

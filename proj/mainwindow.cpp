@@ -10,12 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
+    timeSpeed=1;
     ui->setupUi(this);
     myTimer = new QTimer(this);
-    myTimer->setInterval(1000);
+    myTimer->setInterval(1000/timeSpeed);
     myTime=new QTime(0,0,0);
-    timeSpeed=1;
-
     init_scene();
 
    /* auto myscene= dynamic_cast<MyScene*>(ui->graphicsView->scene());
@@ -37,15 +37,38 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->spdRevBtn,SIGNAL(clicked()),this,SLOT(speedReverse()));
 
 
+/*
+    for(int i=0;i<paths.size();++i)
+    {
+        foreach(MyLineItem *line, paths.at(i)->getPath())
+        {
+            auto s=line->line().p1();
+            auto e=line->line().p2();
+            qDebug()<<s<<e;
+            auto tram = new Tram(&s,&e);
+            ui->graphicsView->scene()->addItem(tram);
+        }
+    }*/
+    /*
+    auto route = paths.at(0)->getPath().first();
+    auto s=route->line().p1();
+    auto e=route->line().p2();
+    qDebug()<<s<<e;
+    auto tram = new Tram(&s,&e);
+    ui->graphicsView->scene()->addItem(tram);*/
 
-
-
+   /* auto route = paths.at(0);
+    auto tram = new Tram(route);
+    ui->graphicsView->scene()->addItem(tram);*/
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+
 
 void MainWindow::init_scene()
 {
@@ -59,17 +82,18 @@ void MainWindow::init_scene()
     map_scene->createStreet4(Qt::yellow);
     map_scene->createStreet5(Qt::green);*/
 
-
-    //map_scene->loadLines();
-
     setPaths();
     for(int i=0;i<paths.size();++i)
     {
-        foreach(QGraphicsItem *line, paths.at(i)->getPath().keys())
+        foreach(QGraphicsItem *line, paths.at(i)->getPath())
         {
             map_scene->addItem(line);
         }
     }
+
+
+
+
 
 }
 
@@ -115,7 +139,26 @@ void  MainWindow::onTimer()
 {
     QString str = myTime->toString("hh : mm : ss");
     ui->timeShowLab->setText(str);
-    *myTime=myTime->addMSecs(1000*timeSpeed);
+    if(timeRev)
+    {
+        *myTime=myTime->addMSecs(-1000);
+    }
+    else
+    {
+        *myTime=myTime->addMSecs(1000);
+    }
+
+    myTimer->setInterval(1000/timeSpeed);
+    //repaint scene
+    ui->graphicsView->scale(1.00000000001,1.00000000001);
+
+///////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////// animations /////////////////////////////////////////////
+
+    static Drive jazda(paths.at(0),*myTime,ui->graphicsView->scene());
+    jazda.move(timeRev);
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 }
 void MainWindow::speedUp()
 {
@@ -133,10 +176,7 @@ void MainWindow::speedDown()
 }
 void MainWindow::speedReverse()
 {
-    timeSpeed*=-1;
-    QString speed;
-    QTextStream(&speed)<<timeSpeed;
-    ui->timeSpdLab->setText(speed);
+    timeRev=!timeRev;
 }
 
 void MainWindow::loadLinesfromFile()
@@ -157,6 +197,7 @@ void MainWindow::loadLinesfromFile()
             int y2=val.toObject().value("y2").toInt();
             loadedLines<<QLine(x1,y1,x2,y2);
         }
+
     }
 }
 

@@ -7,6 +7,7 @@
 #include "mylineitem.h"
 #include "path.h"
 #include <QJsonDocument>
+#include "drive.h"
 
 #include <QMainWindow>
 
@@ -31,6 +32,8 @@ private:
     QTimer *myTimer;
     QTime *myTime;
     float timeSpeed;
+    bool timeRev=false;
+    Tram *tram=nullptr;
 
     QList<QLine> loadedLines;
     QVector <Path*> paths;

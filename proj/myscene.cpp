@@ -10,10 +10,11 @@ MyScene::MyScene(QObject *parent) : QGraphicsScene(parent)
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    qDebug()<<"tu";
     for (auto *item: items(event->scenePos()))
     {
-        if (auto street = dynamic_cast<QGraphicsLineItem*>(item); street) {
-            qDebug() << "Street." << endl;
+        if (auto street = dynamic_cast<QGraphicsEllipseItem*>(item); street) {
+            qDebug() << "ell" << endl;
         }
     }
 }

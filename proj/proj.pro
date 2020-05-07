@@ -16,17 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    drive.cpp \
     main.cpp \
     mainwindow.cpp \
     mylineitem.cpp \
     myscene.cpp \
-    path.cpp
+    path.cpp \
+    tram.cpp
 
 HEADERS += \
+    drive.h \
     mainwindow.h \
     mylineitem.h \
     myscene.h \
-    path.h
+    path.h \
+    tram.h
 
 FORMS += \
     mainwindow.ui

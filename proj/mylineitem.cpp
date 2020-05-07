@@ -10,8 +10,8 @@ MyLineItem::MyLineItem(QColor color, QGraphicsItem *parent) : QGraphicsLineItem(
 }
 
 void MyLineItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    qDebug() << event->pos() << event->scenePos() << event->screenPos() << endl;
-    QGraphicsLineItem::mousePressEvent(event);
+  //  qDebug() << event->pos() << event->scenePos() << event->screenPos() << endl;
+  //  QGraphicsLineItem::mousePressEvent(event);
 }
 
 void MyLineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -22,3 +22,5 @@ void MyLineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawEllipse(line().pointAt(0), 2, 2);
     painter->drawEllipse(line().pointAt(1), 2, 2);
 }
+
+

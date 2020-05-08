@@ -21,6 +21,8 @@ private:
     QGraphicsScene *scene;
     bool timeRev;
     Tram *tram;
+    int street = 0;
+    double part = 0;
 };
 
 #endif // DRIVE_H

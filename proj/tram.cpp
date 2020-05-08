@@ -13,10 +13,9 @@ Tram::Tram(QPointF *start,QPointF *end,float loc, QGraphicsItem *parent) :
 
 void Tram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setPen(QPen({Qt::black}, 5));
-    painter->drawEllipse(line.pointAt(loc), 8, 8);
-    painter->setPen(QPen({Qt::red}, 5));
-    painter->drawEllipse(line.pointAt(loc), 4, 4);
+    painter->drawLine(line);
+    painter->setPen(QPen({Qt::black},5));
+    painter->drawEllipse(line.pointAt(loc), 10, 10);
 }
 
 void Tram::onAnimation(const QVariant &val)

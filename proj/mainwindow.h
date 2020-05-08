@@ -32,6 +32,7 @@ private:
     float timeSpeed;
     bool timeRev = false;
     QVector <Path*> paths;
+    //Drive* jazda;
 
 private slots:
     void zoom_in();

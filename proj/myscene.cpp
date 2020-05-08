@@ -15,17 +15,10 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         if (auto *street = dynamic_cast<MyLineItem*>(item); street) {
             for(int i=0;i<paths.size();++i)
             {
-                foreach(MyLineItem *line, paths.at(i)->getPath())
+                foreach(QGraphicsItem *line, paths.at(i)->getPath())
                 {
                    if (line == street) {
-                       if(paths.at(i)->highlighted) {
-                           paths.at(i)->setPathWidth(4, 6);
-                           paths.at(i)->highlighted = false;
-                       }
-                       else {
-                           paths.at(i)->setPathWidth(7, 9);
-                           paths.at(i)->highlighted = true;
-                       }
+                       qDebug() << "Street name: " << paths.at(i)->getName() << endl;
                    }
                 }
             }
@@ -235,7 +228,7 @@ void MyScene::toFile()
 // Load map coordinates from file, store them to the list of lines
 void MyScene::loadLinesfromFile()
 {
-    QFile file("./json.txt");
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

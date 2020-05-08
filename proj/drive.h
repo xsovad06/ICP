@@ -13,6 +13,8 @@ public:
     explicit Drive(Path * path, QTime actTime, QGraphicsScene *scene);
 
     void move(bool timeRev);
+    void moveBack(bool timeRev);
+    void setDirection(bool reverse);
 
 
 private:
@@ -22,7 +24,9 @@ private:
     bool timeRev;
     Tram *tram;
     int street = 0;
-    double part = 0;
+    double part=0;
+
+
 };
 
 #endif // DRIVE_H

@@ -15,10 +15,17 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         if (auto *street = dynamic_cast<MyLineItem*>(item); street) {
             for(int i=0;i<paths.size();++i)
             {
-                foreach(QGraphicsItem *line, paths.at(i)->getPath())
+                foreach(MyLineItem *line, paths.at(i)->getPath())
                 {
                    if (line == street) {
-                       qDebug() << "Street name: " << paths.at(i)->getName() << endl;
+                       if(paths.at(i)->highlighted) {
+                           paths.at(i)->setPathWidth(4, 6);
+                           paths.at(i)->highlighted = false;
+                       }
+                       else {
+                           paths.at(i)->setPathWidth(7, 9);
+                           paths.at(i)->highlighted = true;
+                       }
                    }
                 }
             }

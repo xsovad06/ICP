@@ -17,6 +17,8 @@ public:
     QList <MyLineItem*> getPath();
     QString getName();
     int getTotalTime();
+    void setPathWidth(int penWidth, int penWidthStop);
+    bool highlighted = false;
 
 private:
     QString name;

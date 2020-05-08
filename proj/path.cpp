@@ -1,4 +1,5 @@
 #include "path.h"
+#include <QDebug>
 
 Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : QObject(parent)
 {
@@ -26,6 +27,15 @@ QList <MyLineItem*> Path::getPath()
     return path;
 
 }
+
+void Path::setPathWidth(int penWidth, int penWidthStop)
+{
+    foreach(MyLineItem *line, path)
+    {
+        line->setPenWidth(penWidth, penWidthStop);
+    }
+}
+
 QString Path::getName()
 {
     return name;

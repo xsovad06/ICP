@@ -9,8 +9,7 @@ Drive::Drive(Path * path, QTime actTime, QGraphicsScene *scene)
 
 void Drive::move(bool timeRev)
 {
-    static int street = 0;
-    static double part=0;
+
     if(street>=0 && street<path->getPath().size())
     {
         auto line =path->getPath().at(street);

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTime>
+#include "myscene.h"
 #include "path.h"
 #include "tram.h"
 

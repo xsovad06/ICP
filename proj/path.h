@@ -2,9 +2,9 @@
 #define PATH_H
 
 #include <QObject>
-#include "myscene.h"
 #include "mylineitem.h"
 #include <QtMath>
+//#include <QList>
 
 
 class Path : public QObject
@@ -12,17 +12,18 @@ class Path : public QObject
     Q_OBJECT
 public:
     //explicit Path(QObject *parent = nullptr);
-    Path(QString newName,QList<QLine> lines, QColor clr=Qt::black, QObject *parent = nullptr);
+    Path(QString newName, QList<QLine> lines, QColor clr = Qt::black, QObject *parent = nullptr);
     int getSize();
     QList <MyLineItem*> getPath();
     QString getName();
-    void removeFirstP();
+    int getTotalTime();
 
 private:
     QString name;
-   // QMap <MyLineItem*,int> path;
+    //roads 1 by 1 with their times
     QList <MyLineItem*> path;
     int size;
+    int total_time = 0;
 };
 
 #endif // PATH_H

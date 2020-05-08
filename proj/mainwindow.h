@@ -23,8 +23,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void loadLinesfromFile();
-    void setPaths();
 
 private:
     void init_scene();
@@ -32,10 +30,7 @@ private:
     QTimer *myTimer;
     QTime *myTime;
     float timeSpeed;
-    bool timeRev=false;
-    Tram *tram=nullptr;
-
-    QList<QLine> loadedLines;
+    bool timeRev = false;
     QVector <Path*> paths;
 
 private slots:
@@ -47,6 +42,5 @@ private slots:
     void speedUp();
     void speedDown();
     void speedReverse();
-
 };
 #endif // MAINWINDOW_H

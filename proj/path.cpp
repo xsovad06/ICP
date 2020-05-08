@@ -1,36 +1,38 @@
 #include "path.h"
 
-Path::Path(QString newName,QList<QLine> lines, QColor clr, QObject *parent) : QObject(parent)
+Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : QObject(parent)
 {
-    this->name=newName;
+    this->name = newName;
     int i=0;
-
-    QPainterPath allP;
-    for(auto line:lines)
+    for(auto line: lines)
     {
         ++i;
         auto *myline = new MyLineItem(clr);
         myline->setLine(line);
-        //int timeInSec = sqrt(line.dy()*line.dy()+line.dx()*line.dx());
+        int timeInSec = sqrt(line.dy()*line.dy()+line.dx()*line.dx());
+        this->total_time = this->total_time + timeInSec;
         this->path<<myline;
-
     }
-    this->size=i;
+    this->size = i;
 }
 
 int Path::getSize()
 {
     return this->size;
 }
+
 QList <MyLineItem*> Path::getPath()
 {
     return path;
+
 }
 QString Path::getName()
 {
     return name;
 }
-void Path::removeFirstP()
+
+int Path::getTotalTime()
 {
-    path.removeFirst();
+    return this->total_time;
 }
+

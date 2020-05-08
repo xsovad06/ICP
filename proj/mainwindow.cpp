@@ -5,48 +5,40 @@
 #include <QGraphicsLineItem>
 #include <QDebug>
 
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow) {
     timeSpeed = 1;
     ui->setupUi(this);
     myTimer = new QTimer(this);
-    myTimer->setInterval(1000/timeSpeed);
+    myTimer->setInterval(1000 / timeSpeed);
     myTime = new QTime(0,0,0);
     init_scene();
 
-   /* auto mapScene= dynamic_cast<mapScene*>(ui->graphicsView->scene());
+    /* auto mapScene= dynamic_cast<mapScene*>(ui->graphicsView->scene());
     if(mapScene)
     {
         mapScene->toFile();
     }*/
 
-
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
     connect(ui->zoom_slider, SIGNAL(valueChanged(int)), this, SLOT(zoom_slider(int)));
 
-    connect(myTimer,SIGNAL(timeout()),this,SLOT(onTimer()));
-    connect(ui->timePlayBtn,SIGNAL(clicked()),this,SLOT(startTimer()));
-    connect(ui->spdUpBtn,SIGNAL(clicked()),this,SLOT(speedUp()));
-    connect(ui->spdDownBtn,SIGNAL(clicked()),this,SLOT(speedDown()));
-    connect(ui->spdRevBtn,SIGNAL(clicked()),this,SLOT(speedReverse()));
+    connect(myTimer, SIGNAL(timeout()), this, SLOT(onTimer()));
+    connect(ui->timePlayBtn, SIGNAL(clicked()), this, SLOT(startTimer()));
+    connect(ui->spdUpBtn, SIGNAL(clicked()), this, SLOT(speedUp()));
+    connect(ui->spdDownBtn, SIGNAL(clicked()), this, SLOT(speedDown()));
+    connect(ui->spdRevBtn, SIGNAL(clicked()), this, SLOT(speedReverse()));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::init_scene()
-{
-    // Create pointer to our graphic scene
+void MainWindow::init_scene() {
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-/*  Create map in case of creating json file
+    /*  Create map in case of creating json file
     map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
@@ -57,18 +49,17 @@ void MainWindow::init_scene()
 
     map_scene->setPaths();
     paths = map_scene->getPaths();
-    for(int i=0;i < paths.size();++i)
+    for(int i = 0; i < paths.size(); ++i)
     {
         foreach(QGraphicsItem *line, paths.at(i)->getPath())
         {
             map_scene->addItem(line);
         }
-        qDebug()<< "Total time in sec: " << paths.at(i)->getTotalTime();
     }
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
-void MainWindow::zoom_in()
-{
+void MainWindow::zoom_in() {
     auto actual_value = ui->zoom_slider->value();
     if (actual_value != 100) {
         ui->graphicsView->scale(1.25, 1.25);
@@ -76,8 +67,7 @@ void MainWindow::zoom_in()
     }
 }
 
-void MainWindow::zoom_out()
-{
+void MainWindow::zoom_out() {
     auto actual_value = ui->zoom_slider->value();
     if (actual_value != 1) {
         ui->graphicsView->scale(0.8, 0.8);
@@ -85,15 +75,13 @@ void MainWindow::zoom_out()
     }
 }
 
-void MainWindow::zoom_slider(int n)
-{
+void MainWindow::zoom_slider(int n) {
     auto original_matrix = ui->graphicsView->transform();
     qreal scale = n/10.0;
     ui->graphicsView->setTransform(QTransform(scale, original_matrix.m12(), original_matrix.m21(), scale, original_matrix.dx(), original_matrix.dy()));
 }
 
-void MainWindow::startTimer()
-{
+void MainWindow::startTimer() {
     if(!myTimer->isActive()) {
         myTimer->start();
     }
@@ -102,85 +90,54 @@ void MainWindow::startTimer()
     }
 }
 
-void  MainWindow::onTimer()
-{
+void  MainWindow::onTimer() {
     QString str = myTime->toString("hh : mm : ss");
-        ui->timeShowLab->setText(str);
-        if(timeRev)
-        {
-            *myTime=myTime->addMSecs(-1000);
-        }
-        else
-        {
-            *myTime=myTime->addMSecs(1000);
-        }
+    ui->timeShowLab->setText(str);
+    if(timeRev) {
+        *myTime = myTime->addMSecs(-1000);
+    }
+    else {
+        *myTime = myTime->addMSecs(1000);
+    }
 
-        myTimer->setInterval(1000/timeSpeed);
-        //repaint scene
-        ui->graphicsView->scale(1.00000000001,1.00000000001);
+    myTimer->setInterval(1000 / timeSpeed);
+    //repaint scene
+    ui->graphicsView->scale(1.00000000001, 1.00000000001);
 
-        /************************** ANIMATION ****************************/
-        static Drive *jazdaPtr;
+    /************************** ANIMATION ****************************/
+    static Drive *jazdaPtr;
 
-        if(*myTime>=QTime(0,0,5,0)&&(*myTime<QTime(0,15,30,0)))
-        {
-            static Drive jazda = Drive(paths.at(0),*myTime,ui->graphicsView->scene());
-            jazdaPtr=&jazda;
-            jazda.move(timeRev);
-        }
-        if(*myTime>=QTime(0,16,50,0)&&(*myTime<QTime(0,35,34,0)))
-        {
-            static Drive jazda = *jazdaPtr;
-            jazdaPtr=&jazda;
-            jazda.moveBack(timeRev);
-        }
-        if(*myTime>=QTime(0,50,51,0)&&(*myTime<QTime(1,5,54,0)))
-        {
-            static Drive jazda = *jazdaPtr;
-            jazdaPtr=&jazda;
-            jazda.move(timeRev);
-        }
+    if(*myTime >= QTime(0, 0, 5, 0) && (*myTime < QTime(0, 15, 30, 0))) {
+        static Drive jazda = Drive(paths.at(0), *myTime,ui->graphicsView->scene());
+        jazdaPtr = &jazda;
+        jazda.move(timeRev);
+    }
+    if(*myTime >= QTime(0, 16, 50, 0) && (*myTime < QTime(0, 35, 34, 0))) {
+        static Drive jazda = *jazdaPtr;
+        jazdaPtr = &jazda;
+        jazda.moveBack(timeRev);
+    }
+    if(*myTime >= QTime(0, 50, 51, 0) && (*myTime < QTime(1, 5, 54, 0))) {
+        static Drive jazda = *jazdaPtr;
+        jazdaPtr = &jazda;
+        jazda.move(timeRev);
+    }
 }
 
-void MainWindow::speedUp()
-{
-    timeSpeed*=2;
+void MainWindow::speedUp() {
+    timeSpeed *= 2;
     QString speed;
-    QTextStream(&speed)<<timeSpeed;
+    QTextStream(&speed) << timeSpeed;
     ui->timeSpdLab->setText(speed);
 }
 
-void MainWindow::speedDown()
-{
-    timeSpeed/=2;
+void MainWindow::speedDown() {
+    timeSpeed /= 2;
     QString speed;
-    QTextStream(&speed)<<timeSpeed;
+    QTextStream(&speed) << timeSpeed;
     ui->timeSpdLab->setText(speed);
 }
 
-void MainWindow::speedReverse()
-{
+void MainWindow::speedReverse() {
    timeRev=!timeRev;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,42 +1,75 @@
 #ifndef MYSCENE_H
 #define MYSCENE_H
 
-#include "path.h"
 #include <QGraphicsScene>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
 #include <QFile>
+#include "path.h"
 
-class MyScene : public QGraphicsScene
-{
-    Q_OBJECT
-public:
-    explicit MyScene(QObject *parent = nullptr);
-    void createStreet1(QColor street_color = nullptr);
-    void createStreet2(QColor street_color = nullptr);
-    void createStreet3(QColor street_color = nullptr);
-    void createStreet4(QColor street_color = nullptr);
-    void createStreet5(QColor street_color = nullptr);
+//!  Class represents scene with map.
+/*!
+  Scene is contains of streets whitch are joined into the path.
+*/
+class MyScene : public QGraphicsScene {
+    public:
+        explicit MyScene(QObject *parent = nullptr);
+        //! Method for creating path.
+        /*!
+          Used for creating json file with street positions.
+        */
+        void createStreet1(QColor street_color = nullptr);
+        //! Method for creating path.
+        /*!
+          Used for creating json file with street positions.
+        */
+        void createStreet2(QColor street_color = nullptr);
+        //! Method for creating path.
+        /*!
+          Used for creating json file with street positions.
+        */
+        void createStreet3(QColor street_color = nullptr);
+        //! Method for creating path.
+        /*!
+          Used for creating json file with street positions.
+        */
+        void createStreet4(QColor street_color = nullptr);
+        //! Method for creating path.
+        /*!
+          Used for creating json file with street positions.
+        */
+        void createStreet5(QColor street_color = nullptr);
 
-    void loadLinesfromFile();
-    void setPaths();
-    QVector<Path*> getPaths();
-    QString toJson();
-    void toFile();
+        //! Create list of line with cordinates.
+        /*!
+          Load map of coordinates from file, store them to the list of lines.
+        */
+        void loadLinesfromFile();
+        //! Create vector of lists of Line items.
+        /*!
+          From loaded data create vector of lists of Line items
+          that represents appropriate path.
+        */
+        void setPaths();
+        //! Return created vector.
+        QVector<Path*> getPaths();
+        //! Convert string with street coordinates to json QString.
+        QString toJson();
+        //! Save json QString to file.
+        void toFile();
 
-protected:
-    QList<MyLineItem*> lineList;
-    QList<QLine> loadedLines;
-    QVector<Path*> paths;
+    protected:
+        QList<MyLineItem*> lineList;    /*!< A list of references to MyLineItems object*/
+        QList<QLine> loadedLines;       /*!< A list of Qline objects */
+        QVector<Path*> paths;           /*!< A Vector of references to Path objects */
 
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    //virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-    //virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-
-signals:
-
+        //! Method for highlighting path when clicked on the street.
+        /*!
+          Overriden method.
+        */
+        virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif // MYSCENE_H

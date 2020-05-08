@@ -15,33 +15,29 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
+    public:
+        MainWindow(QWidget *parent = nullptr);
+        ~MainWindow();
 
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    private:
+        void init_scene();
+        Ui::MainWindow *ui;
+        QTimer *myTimer;
+        QTime *myTime;
+        float timeSpeed;
+        bool timeRev = false;
+        QVector <Path*> paths;
 
-
-private:
-    void init_scene();
-    Ui::MainWindow *ui;
-    QTimer *myTimer;
-    QTime *myTime;
-    float timeSpeed;
-    bool timeRev = false;
-    QVector <Path*> paths;
-    //Drive* jazda;
-
-private slots:
-    void zoom_in();
-    void zoom_out();
-    void zoom_slider(int n);
-    void startTimer();
-    void onTimer();
-    void speedUp();
-    void speedDown();
-    void speedReverse();
+    private slots:
+        void zoom_in();
+        void zoom_out();
+        void zoom_slider(int n);
+        void startTimer();
+        void onTimer();
+        void speedUp();
+        void speedDown();
+        void speedReverse();
 };
 #endif // MAINWINDOW_H

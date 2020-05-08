@@ -1,0 +1,50 @@
+Route n.1:(Blue)
+	Konecna11	00:00:00
+	Prva1		00:04:11
+	Druha1		00:05:53
+	Tretia1		00:06:32
+	Stvrta1		00:07:45
+	Piata1		00:08:27
+	Siesta1		00:10:37
+	Siedma1		00:12:20
+	Osma1		00:13:58
+	Konecna12	00:15:19
+
+Route n.2:(Red)
+	Konecna21	00:00:00
+	Prva2		00:01:12
+	Druha2		00:02:17
+	Tretia2		00:04:18
+	Stvrta2		00:05:26
+	Konecna22	00:07:36
+
+Route n.3:(Green)
+	Konecna31	00:00:00
+	Prva3		00:01:37
+	Druha3		00:02:32
+	Stvrta2		00:03:32
+	Stvrta3		00:05:50
+	Piata3		00:07:36
+	Siesta3		00:09:09
+	Konecna32	00:10:35
+
+Route n.4:(Yellow)
+	Konecna41	00:00:00
+	Prva4		00:01:05
+	Druha4		00:02:22
+	Siedma1		00:03:33
+	Siesta1		00:05:15
+	Piata4		00:06:06
+	Siesta4		00:07:55
+	Siedma4		00:09:19
+	Konecna42	00:10:44
+
+Route n.5:(Gray)
+	Konecna51	00:00:00
+	Stvrta1		00:01:13
+	Druha5		00:02:21
+	Tretia5		00:03:22
+	Stvrta5		00:04:52
+	Siedma1		00:06:28
+	Siesta5		00:07:53
+	Konecna32	00:09:48

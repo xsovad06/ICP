@@ -20,10 +20,21 @@ private:
 
     QList<QTime> spoj1;
     QList<QTime> spoj2;
+    QList<QTime> spoj3;
+    QList<QTime> spoj4;
+    QList<QTime> spoj5;
+
     Path* path1;
     Path* path2;
+    Path* path3;
+    Path* path4;
+    Path* path5;
+
     Drive *drive1;
     Drive *drive2;
+    Drive *drive3;
+    Drive *drive4;
+    Drive *drive5;
 
 
 };

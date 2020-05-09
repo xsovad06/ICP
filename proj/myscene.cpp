@@ -220,7 +220,7 @@ void MyScene::toFile() {
 }
 
 void MyScene::loadLinesfromFile() {
-    QFile file("./json.txt");
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

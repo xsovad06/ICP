@@ -8,6 +8,7 @@
 #include "path.h"
 #include <QJsonDocument>
 #include "drive.h"
+#include "schedule.h"
 
 #include <QMainWindow>
 
@@ -29,6 +30,8 @@ class MainWindow : public QMainWindow {
         float timeSpeed;
         bool timeRev = false;
         QVector <Path*> paths;
+
+        Schedule *sched;
 
     private slots:
         void zoom_in();

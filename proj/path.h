@@ -21,7 +21,6 @@ class Path : public QObject {
 
     private:
         QString name;
-        //roads 1 by 1 with their times
         QList <MyLineItem*> path;
         int size;
         int totalTime = 0;

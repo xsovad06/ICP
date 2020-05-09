@@ -1,8 +1,7 @@
 #include "drive.h"
 
-Drive::Drive(Path * path, QTime actTime, QGraphicsScene *scene) {
+Drive::Drive(Path * path, QGraphicsScene *scene) {
     this->path = path;
-    this->actTime = actTime;
     this->scene = scene;
 }
 
@@ -14,7 +13,10 @@ void Drive::move(bool timeRev) {
         auto line = path->getPath().at(street);
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
         if (part >= 0 && part <= dur) {
-            scene->removeItem(tram);
+            if(tram!=nullptr&&scene)
+            {
+                scene->removeItem(tram);
+            }
             auto s = line->line().p1();
             auto e = line->line().p2();
             tram = new Tram(&s, &e, part / dur);

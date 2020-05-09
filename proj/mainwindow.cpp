@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
         mapScene->toFile();
     }*/
 
+
+    sched=new Schedule(paths,ui->graphicsView->scene());
+
+
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
     connect(ui->zoom_slider, SIGNAL(valueChanged(int)), this, SLOT(zoom_slider(int)));
@@ -105,9 +109,9 @@ void  MainWindow::onTimer() {
     ui->graphicsView->scale(1.00000000001, 1.00000000001);
 
     /************************** ANIMATION ****************************/
-    static Drive *jazdaPtr;
+   // static Drive *jazdaPtr;
 
-    if(*myTime >= QTime(0, 0, 5, 0) && (*myTime < QTime(0, 15, 30, 0))) {
+    /*if(*myTime >= QTime(0, 0, 5, 0) && (*myTime < QTime(0, 15, 30, 0))) {
         static Drive jazda = Drive(paths.at(0), *myTime,ui->graphicsView->scene());
         jazdaPtr = &jazda;
         jazda.move(timeRev);
@@ -121,7 +125,9 @@ void  MainWindow::onTimer() {
         static Drive jazda = *jazdaPtr;
         jazdaPtr = &jazda;
         jazda.move(timeRev);
-    }
+    }*/
+    sched->start(*myTime,timeRev);
+
 }
 
 void MainWindow::speedUp() {

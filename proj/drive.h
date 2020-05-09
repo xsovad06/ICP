@@ -9,7 +9,7 @@
 
 class Drive {
     public:
-        explicit Drive(Path * path, QTime actTime, QGraphicsScene *scene);
+        explicit Drive(Path * path, QGraphicsScene *scene);
 
         void move(bool timeRev);
         void moveBack(bool timeRev);
@@ -17,10 +17,9 @@ class Drive {
 
     private:
         Path *path;
-        QTime actTime;
         QGraphicsScene *scene;
         bool timeRev;
-        Tram *tram;
+        Tram *tram = nullptr;
         int street = 0;
         double part= 0;
 };

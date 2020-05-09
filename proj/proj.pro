@@ -22,6 +22,7 @@ SOURCES += \
     mylineitem.cpp \
     myscene.cpp \
     path.cpp \
+    schedule.cpp \
     tram.cpp
 
 HEADERS += \
@@ -30,6 +31,7 @@ HEADERS += \
     mylineitem.h \
     myscene.h \
     path.h \
+    schedule.h \
     tram.h
 
 FORMS += \

@@ -10,12 +10,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     myTimer = new QTimer(this);
     myTimer->setInterval(1000 / timeSpeed);
-    myTime = new QTime(0,0,0,0);
+    myTime = new QTime(0, 0, 0, 0);
     init_scene();
 
-    sched=new Schedule(paths,ui->graphicsView->scene());
+    sched = new Schedule(paths, ui->graphicsView->scene());
     sched->loadTimes();
-
 
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
@@ -54,7 +53,6 @@ void MainWindow::init_scene() {
         {
             map_scene->addItem(line);
         }
-        qDebug()<<paths.at(i)->getTotalTime();
     }
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
@@ -105,7 +103,7 @@ void  MainWindow::onTimer() {
     ui->graphicsView->scale(1.00000000001, 1.00000000001);
 
     /************************** ANIMATION ****************************/
-    sched->start(*myTime,timeRev);
+    sched->start(*myTime, timeRev);
 
 }
 
@@ -124,5 +122,5 @@ void MainWindow::speedDown() {
 }
 
 void MainWindow::speedReverse() {
-   timeRev=!timeRev;
+   timeRev =! timeRev;
 }

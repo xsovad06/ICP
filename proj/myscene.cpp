@@ -14,13 +14,17 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
                 foreach(MyLineItem *line, paths.at(i)->getPath())
                 {
                    if (line == street) {
-                       if(paths.at(i)->highlighted) {
-                           paths.at(i)->setPathWidth(4, 6);
-                           paths.at(i)->highlighted = !paths.at(i)->highlighted;
-                       }
-                       else {
+                       if (!pathHighlighted) {
                            paths.at(i)->setPathWidth(7, 9);
                            paths.at(i)->highlighted = !paths.at(i)->highlighted;
+                           pathHighlighted = !pathHighlighted;
+                       }
+                       else {
+                            if(paths.at(i)->highlighted) {
+                                paths.at(i)->setPathWidth(4, 6);
+                                paths.at(i)->highlighted = !paths.at(i)->highlighted;
+                                pathHighlighted = !pathHighlighted;
+                            }
                        }
                    }
                 }
@@ -205,9 +209,9 @@ QString MyScene::toJson() {
             jArr.append(QJsonObject({{"x1", lineList.at(j)->line().x1()}, {"y1", lineList.at(j)->line().y1()},
                                      {"x2", lineList.at(j)->line().x2()}, {"y2", lineList.at(j)->line().y2()}}));
             ++j;
-            if(j==9||j==14||j==21||j==29||j==36)
+            if(j == 9 || j == 14 || j == 21 || j == 29 || j == 36)
             {
-                jObj.insert("str"+QString::number(i),jArr);
+                jObj.insert("str" + QString::number(i), jArr);
                 break;
             }
         }
@@ -228,7 +232,7 @@ void MyScene::toFile() {
 }
 
 void MyScene::loadLinesfromFile() {
-    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/json.txt");
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();
@@ -236,9 +240,9 @@ void MyScene::loadLinesfromFile() {
         QJsonDocument jDoc = QJsonDocument::fromJson(data);
         QJsonObject jObj = jDoc.object();
         Path * pathPtr;
-        QList<QColor> clrs={Qt::blue,Qt::red,Qt::green,Qt::yellow,Qt::darkGray};
+        QList<QColor> clrs = {Qt::blue, Qt::red, Qt::green, Qt::yellow, Qt::darkGray};
 
-        for(int i=0;i<jObj.keys().size();++i)
+        for(int i = 0; i < jObj.keys().size();++i)
         {
             QJsonArray posArr = jObj.value("str"+QString::number(i)).toArray();
             QList<QLine> lineGroup;

@@ -59,6 +59,8 @@ class MyScene : public QGraphicsScene {
         QString toJson();
         //! Save json QString to file.
         void toFile();
+        bool pathHighlighted = false;   /*!< If path highlighted then true, false otherwise*/
+
 
     protected:
         QList<MyLineItem*> lineList;    /*!< A list of references to MyLineItems object*/

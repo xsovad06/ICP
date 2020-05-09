@@ -9,7 +9,6 @@
 #include <QJsonDocument>
 #include "drive.h"
 #include "schedule.h"
-
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -30,7 +29,6 @@ class MainWindow : public QMainWindow {
         float timeSpeed;
         bool timeRev = false;
         QVector <Path*> paths;
-
         Schedule *sched;
 
     private slots:

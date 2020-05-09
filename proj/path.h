@@ -4,13 +4,10 @@
 #include <QObject>
 #include "mylineitem.h"
 #include <QtMath>
-//#include <QList>
-
 
 class Path : public QObject {
     Q_OBJECT
     public:
-        //explicit Path(QObject *parent = nullptr);
         Path(QString newName, QList<QLine> lines, QColor clr = Qt::black, QObject *parent = nullptr);
         int getSize();
         QList <MyLineItem*> getPath();

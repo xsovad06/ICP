@@ -10,7 +10,6 @@
 class Drive {
     public:
         explicit Drive(Path * path, QGraphicsScene *scene);
-
         void move(bool timeRev);
         void moveBack(bool timeRev);
         void setDirection(bool reverse);

@@ -13,13 +13,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     myTime = new QTime(0,0,0);
     init_scene();
 
-    /* auto mapScene= dynamic_cast<mapScene*>(ui->graphicsView->scene());
-    if(mapScene)
-    {
-        mapScene->toFile();
-    }*/
-
-
     sched=new Schedule(paths,ui->graphicsView->scene());
 
 
@@ -42,16 +35,16 @@ void MainWindow::init_scene() {
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-    /*  Create map in case of creating json file
-    map_scene->createStreet1();
+    // Create map in case of creating json file
+ /*   map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
     map_scene->createStreet4(Qt::yellow);
     map_scene->createStreet5(Qt::green);
 
-    map_scene->loadLines();*/
+    map_scene->toFile();*/
+    map_scene->loadLinesfromFile();
 
-    map_scene->setPaths();
     paths = map_scene->getPaths();
     for(int i = 0; i < paths.size(); ++i)
     {

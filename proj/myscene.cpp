@@ -250,7 +250,7 @@ void MyScene::loadLinesfromFile() {
                 int y2 = val.toObject().value("y2").toInt();
                 lineGroup<< QLine(x1,y1,x2,y2);
             }
-            pathPtr = new Path("p1"+QString::number(i),lineGroup,clrs.at(i%5));
+            pathPtr = new Path("str"+QString::number(i),lineGroup,clrs.at(i%5));
             paths.append(pathPtr);
         }
     }

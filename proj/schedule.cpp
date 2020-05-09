@@ -16,13 +16,13 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene)
     this->path4=paths.at(3);
     this->path5=paths.at(4);
 
-    this->spoj1.append(QTime(0,0,5,0));
+   /* this->spoj1.append(QTime(0,0,5,0));
     this->spoj1.append(QTime(0,5,5,0));
     this->spoj2.append(QTime(1,0,5,0));
     this->spoj2.append(QTime(0,1,5,0));
     this->spoj3.append(QTime(0,4,5,0));
     this->spoj4.append(QTime(1,2,0,0));
-    this->spoj5.append(QTime(1,1,0,0));
+    this->spoj5.append(QTime(1,1,0,0));*/
     this->scene=scene;
 }
 
@@ -113,3 +113,92 @@ Schedule::~Schedule()
     delete drive5;
 
 }
+void Schedule::loadTimes()
+{
+    QList<QString>pathNames;
+
+    pathNames<<path1->getName()<<path2->getName()<<path3->getName()<<path4->getName()<<path5->getName();
+    QFile file("/home/ixpo-u/Plocha/skola/icp/proj/stops.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream in(&file);
+        QString line;
+        QList<QString> lineList;
+        while (in.readLineInto(&line))
+        {
+            if(line!=";")
+            {
+                lineList<<line;
+            }
+            else
+            {
+                if(lineList.first()==pathNames.at(0))
+                {
+                    lineList.removeFirst();
+                    for(auto time:lineList)
+                    {
+                        spoj1<<QTime::fromString(time);
+                    }
+                    lineList.clear();
+                }
+                else if(lineList.first()==pathNames.at(1))
+                {
+                    lineList.removeFirst();
+                    for(auto time:lineList)
+                    {
+                        spoj2<<QTime::fromString(time);
+                    }
+                    lineList.clear();
+                }
+                else if(lineList.first()==pathNames.at(2))
+                {
+                    lineList.removeFirst();
+                    for(auto time:lineList)
+                    {
+                        spoj3<<QTime::fromString(time);
+                    }
+                    lineList.clear();
+                }
+                else if(lineList.first()==pathNames.at(3))
+                {
+                    lineList.removeFirst();
+                    for(auto time:lineList)
+                    {
+                        spoj4<<QTime::fromString(time);
+                    }
+                    lineList.clear();
+                }
+                else if(lineList.first()==pathNames.at(4))
+                {
+                    lineList.removeFirst();
+                    for(auto time:lineList)
+                    {
+                        spoj5<<QTime::fromString(time);
+                    }
+                    lineList.clear();
+                }
+            }
+        }
+        file.close();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

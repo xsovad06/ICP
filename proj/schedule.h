@@ -12,6 +12,7 @@ public:
     Schedule(QVector<Path*>paths, QGraphicsScene *scene);
     ~Schedule();
     void start(QTime actTime,bool timeRev);
+    void loadTimes();
 
 
 private:

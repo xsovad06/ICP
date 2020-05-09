@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     init_scene();
 
     sched=new Schedule(paths,ui->graphicsView->scene());
+    sched->loadTimes();
 
 
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
@@ -53,6 +54,7 @@ void MainWindow::init_scene() {
         {
             map_scene->addItem(line);
         }
+        qDebug()<<paths.at(i)->getTotalTime();
     }
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }

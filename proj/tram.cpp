@@ -17,10 +17,3 @@ void Tram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawEllipse(line.pointAt(loc), 4, 4);
 }
 
-void Tram::onAnimation(const QVariant &val) {
-    location = val.toPointF();
-    update();
-}
-void Tram::nextAnimation() {
-    qDebug()<<"rrr";
-}

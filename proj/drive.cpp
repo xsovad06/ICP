@@ -15,7 +15,8 @@ void Drive::move(bool timeRev) {
         if (part >= 0 && part <= dur) {
             if(tram!=nullptr&&scene)
             {
-                scene->removeItem(tram);
+              //  scene->removeItem(tram);
+                delete tram;
             }
             auto s = line->line().p1();
             auto e = line->line().p2();
@@ -59,7 +60,8 @@ void Drive::moveBack(bool timeRev) {
         auto line = path->getPath().at(street);
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
         if (part >= 0 && part <= dur) {
-            scene->removeItem(tram);
+            //  scene->removeItem(tram);
+              delete tram;
             auto s = line->line().p1();
             auto e = line->line().p2();
             tram = new Tram(&s, &e, part / dur);

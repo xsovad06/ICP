@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     myTimer = new QTimer(this);
     myTimer->setInterval(1000 / timeSpeed);
-    myTime = new QTime(0,0,0);
+    myTime = new QTime(0,0,0,0);
     init_scene();
 
     sched=new Schedule(paths,ui->graphicsView->scene());
@@ -35,17 +35,18 @@ void MainWindow::init_scene() {
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-    // Create map in case of creating json file
+////////////////Create and save map////////////////////////
  /*   map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
     map_scene->createStreet4(Qt::yellow);
     map_scene->createStreet5(Qt::green);
-
     map_scene->toFile();*/
+//////////////////////////////////////////////////////////
+  ////////////////////// load map ////////////////
     map_scene->loadLinesfromFile();
-
     paths = map_scene->getPaths();
+///////////////////////////////////////////////////////
     for(int i = 0; i < paths.size(); ++i)
     {
         foreach(QGraphicsItem *line, paths.at(i)->getPath())
@@ -102,23 +103,6 @@ void  MainWindow::onTimer() {
     ui->graphicsView->scale(1.00000000001, 1.00000000001);
 
     /************************** ANIMATION ****************************/
-   // static Drive *jazdaPtr;
-
-    /*if(*myTime >= QTime(0, 0, 5, 0) && (*myTime < QTime(0, 15, 30, 0))) {
-        static Drive jazda = Drive(paths.at(0), *myTime,ui->graphicsView->scene());
-        jazdaPtr = &jazda;
-        jazda.move(timeRev);
-    }
-    if(*myTime >= QTime(0, 16, 50, 0) && (*myTime < QTime(0, 35, 34, 0))) {
-        static Drive jazda = *jazdaPtr;
-        jazdaPtr = &jazda;
-        jazda.moveBack(timeRev);
-    }
-    if(*myTime >= QTime(0, 50, 51, 0) && (*myTime < QTime(1, 5, 54, 0))) {
-        static Drive jazda = *jazdaPtr;
-        jazdaPtr = &jazda;
-        jazda.move(timeRev);
-    }*/
     sched->start(*myTime,timeRev);
 
 }

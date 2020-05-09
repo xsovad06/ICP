@@ -21,16 +21,9 @@ class Tram : public QObject, public QGraphicsEllipseItem {
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR) override;
 
     private:
-        QPointF location;
-        QPointF end;
-        QVariantAnimation *anim{nullptr};
-        Path *path;
         QLineF line;
         float loc;
 
-    private slots:
-        void onAnimation(const QVariant &val);
-        void nextAnimation();
 };
 
 #endif // TRAM_H

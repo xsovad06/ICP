@@ -1,7 +1,6 @@
-#ifndef MYSCENE_H
-#define MYSCENE_H
+#ifndef MYSCENE2_H
+#define MYSCENE2_H
 
-#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -10,18 +9,14 @@
 #include <QFile>
 #include "mylineitem.h"
 #include "path.h"
-#include "myscene2.h"
 
-//!  Class represents scene with map.
-/*!
-  Scene is contains of streets whitch are joined into the path.
-*/
-class MyScene : public QGraphicsScene {
+//!  Class represents small scene with highlighted path.
+class MyScene2 : public QGraphicsScene {
     public:
-        explicit MyScene(QObject *parent = nullptr);
+        explicit MyScene2(QObject *parent = nullptr);
         //! Method for creating path.
         /*!
-          Used for creating json file with street positions.
+        Used for creating json file with street positions.
         */
         void createStreet1(QColor street_color = nullptr);
         //! Method for creating path.
@@ -44,38 +39,24 @@ class MyScene : public QGraphicsScene {
           Used for creating json file with street positions.
         */
         void createStreet5(QColor street_color = nullptr);
-
+        //! Convert string with street coordinates to json QString.
+        QString toJson();
+        //! Save json QString to file.
+        void toFile();
         //! Create list of line with cordinates.
         /*!
           Load map of coordinates from file, store them to the list of lines.
         */
         void loadLinesFromFile();
-        //! Create vector of lists of Line items.
-        /*!
-          From loaded data create vector of lists of Line items
-          that represents appropriate path.
-        */
-        //void setPaths();
         //! Return created vector.
         QVector<Path*> getPaths();
-        //! Convert string with street coordinates to json QString.
-        QString toJson();
-        //! Save json QString to file.
-        void toFile();
-        bool pathHighlighted = false;   /*!< If path highlighted then true, false otherwise*/
-        QString highlighted_name;       /*!< Name of the highlighted path*/
-        MyScene2 * miniMapPath;
 
     protected:
         QList<MyLineItem*> lineList;    /*!< A list of references to MyLineItems object*/
         QList<QLine> loadedLines;       /*!< A list of Qline objects */
         QVector<Path*> paths;           /*!< A Vector of references to Path objects */
-
-        //! Method for highlighting path when clicked on the street.
-        /*!
-          Overriden method.
-        */
-        virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    signals:
+        void valueChanged(QString name);
 };
 
-#endif // MYSCENE_H
+#endif // MYSCENE2_H

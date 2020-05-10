@@ -1,37 +1,8 @@
-#include "myscene.h"
+#include "myscene2.h"
 
-MyScene::MyScene(QObject *parent) : QGraphicsScene(parent) {}
+MyScene2::MyScene2(QObject *parent) : QGraphicsScene(parent) {}
 
-void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    for (auto *item: items(event->scenePos()))
-    {
-        if (auto *street = dynamic_cast<MyLineItem*> (item); street) {
-            for(int i=0;i<paths.size();++i)
-            {
-                foreach(MyLineItem *line, paths.at(i)->getPath())
-                {
-                   if (line == street) {
-                       if (!pathHighlighted) {
-                           paths.at(i)->setPathWidth(7, 9);
-                           paths.at(i)->highlighted = !paths.at(i)->highlighted;
-                           pathHighlighted = !pathHighlighted;
-                           highlighted_name = paths.at(i)->getName();
-                       }
-                       else {
-                            if(paths.at(i)->highlighted) {
-                                paths.at(i)->setPathWidth(4, 6);
-                                paths.at(i)->highlighted = !paths.at(i)->highlighted;
-                                pathHighlighted = !pathHighlighted;
-                            }
-                       }
-                   }
-                }
-            }
-        }
-    }
-}
-
-void MyScene::createStreet1(QColor street_color) {
+void MyScene2::createStreet1(QColor street_color) {
     auto *line1 = new MyLineItem(street_color);
     auto *line2 = new MyLineItem(street_color);
     auto *line3 = new MyLineItem(street_color);
@@ -41,15 +12,15 @@ void MyScene::createStreet1(QColor street_color) {
     auto *line7 = new MyLineItem(street_color);
     auto *line8 = new MyLineItem(street_color);
     auto *line9 = new MyLineItem(street_color);
-    line1->setLine(0,0,150,200);
-    line2->setLine(150,200,170,300);
-    line3->setLine(170,300,200,320);
-    line4->setLine(200,320,270,305);
-    line5->setLine(270,305,300,280);
-    line6->setLine(300,280,400,200);
-    line7->setLine(400,200,420,100);
-    line8->setLine(420,100,500,47);
-    line9->setLine(500,47,580,32);
+    line1->setLine(0,20,60,20);
+    line2->setLine(60,20,120,20);
+    line3->setLine(120,20,180,20);
+    line4->setLine(180,20,240,20);
+    line5->setLine(240,20,300,20);
+    line6->setLine(300,20,360,20);
+    line7->setLine(360,20,420,20);
+    line8->setLine(420,20,480,20);
+    line9->setLine(480,20,540,20);
     addItem(line1);
     addItem(line2);
     addItem(line3);
@@ -71,17 +42,17 @@ void MyScene::createStreet1(QColor street_color) {
     lineList<<line9;
 }
 
-void MyScene::createStreet2(QColor street_color) {
+void MyScene2::createStreet2(QColor street_color) {
     auto *line1 = new MyLineItem(street_color);
     auto *line2 = new MyLineItem(street_color);
     auto *line3 = new MyLineItem(street_color);
     auto *line4 = new MyLineItem(street_color);
     auto *line5 = new MyLineItem(street_color);
-    line1->setLine(0,300,50,250);
-    line2->setLine(50,250,70,190);
-    line3->setLine(70,190,150,100);
-    line4->setLine(150,100,190,50);
-    line5->setLine(190,50,315,5);
+    line1->setLine(0,20,60,20);
+    line2->setLine(60,20,120,20);
+    line3->setLine(120,20,180,20);
+    line4->setLine(180,20,240,20);
+    line5->setLine(240,20,300,20);
     addItem(line1);
     addItem(line2);
     addItem(line3);
@@ -95,7 +66,7 @@ void MyScene::createStreet2(QColor street_color) {
     lineList<<line5;
 }
 
-void MyScene::createStreet3(QColor street_color) {
+void MyScene2::createStreet3(QColor street_color) {
     auto *line1 = new MyLineItem(street_color);
     auto *line2 = new MyLineItem(street_color);
     auto *line3 = new MyLineItem(street_color);
@@ -103,13 +74,13 @@ void MyScene::createStreet3(QColor street_color) {
     auto *line5 = new MyLineItem(street_color);
     auto *line6 = new MyLineItem(street_color);
     auto *line7 = new MyLineItem(street_color);
-    line1->setLine(10,95,80,25);
-    line2->setLine(80,25,130,30);
-    line3->setLine(130,30,190,48);
-    line4->setLine(190,48,315,3);
-    line5->setLine(315,3,420,5);
-    line6->setLine(420,5,500,45);
-    line7->setLine(500,45,580,30);
+    line1->setLine(0,20,60,20);
+    line2->setLine(60,20,120,20);
+    line3->setLine(120,20,180,20);
+    line4->setLine(180,20,240,20);
+    line5->setLine(240,20,300,20);
+    line6->setLine(300,20,360,20);
+    line7->setLine(360,20,420,20);
     addItem(line1);
     addItem(line2);
     addItem(line3);
@@ -127,7 +98,7 @@ void MyScene::createStreet3(QColor street_color) {
     lineList<<line7;
 }
 
-void MyScene::createStreet4(QColor street_color ) {
+void MyScene2::createStreet4(QColor street_color ) {
     auto *line1 = new MyLineItem(street_color);
     auto *line2 = new MyLineItem(street_color);
     auto *line3 = new MyLineItem(street_color);
@@ -136,14 +107,14 @@ void MyScene::createStreet4(QColor street_color ) {
     auto *line6 = new MyLineItem(street_color);
     auto *line7 = new MyLineItem(street_color);
     auto *line8 = new MyLineItem(street_color);
-    line1->setLine(250,5,300,45);
-    line2->setLine(300,45,375,47);
-    line3->setLine(375,47,418,100);
-    line4->setLine(418,100,398,200);
-    line5->setLine(398,200,420,245);
-    line6->setLine(420,245,512,300);
-    line7->setLine(512,300,590,315);
-    line8->setLine(590,315,630,387);
+    line1->setLine(0,20,60,20);
+    line2->setLine(60,20,120,20);
+    line3->setLine(120,20,180,20);
+    line4->setLine(180,20,240,20);
+    line5->setLine(240,20,300,20);
+    line6->setLine(300,20,360,20);
+    line7->setLine(360,20,420,20);
+    line8->setLine(420,20,480,20);
     addItem(line1);
     addItem(line2);
     addItem(line3);
@@ -163,7 +134,7 @@ void MyScene::createStreet4(QColor street_color ) {
     lineList<<line8;
 }
 
-void MyScene::createStreet5(QColor street_color) {
+void MyScene2::createStreet5(QColor street_color) {
     auto *line1 = new MyLineItem(street_color);
     auto *line2 = new MyLineItem(street_color);
     auto *line3 = new MyLineItem(street_color);
@@ -171,13 +142,13 @@ void MyScene::createStreet5(QColor street_color) {
     auto *line5 = new MyLineItem(street_color);
     auto *line6 = new MyLineItem(street_color);
     auto *line7 = new MyLineItem(street_color);
-    line1->setLine(300,370,270,305);
-    line2->setLine(270,305,260,240);
-    line3->setLine(260,240,265,180);
-    line4->setLine(265,180,325,115);
-    line5->setLine(325,115,418,100);
-    line6->setLine(418,100,485,150);
-    line7->setLine(485,150,600,175);
+    line1->setLine(0,20,60,20);
+    line2->setLine(60,20,120,20);
+    line3->setLine(120,20,180,20);
+    line4->setLine(180,20,240,20);
+    line5->setLine(240,20,300,20);
+    line6->setLine(300,20,360,20);
+    line7->setLine(360,20,420,20);
     addItem(line1);
     addItem(line2);
     addItem(line3);
@@ -195,7 +166,7 @@ void MyScene::createStreet5(QColor street_color) {
     lineList<<line7;
 }
 
-QString MyScene::toJson() {
+QString MyScene2::toJson() {
     QJsonDocument jDoc;
     QJsonObject jObj;
     int j = 0;
@@ -218,9 +189,9 @@ QString MyScene::toJson() {
     return jDoc.toJson(QJsonDocument::Compact);
 }
 
-void MyScene::toFile() {
+void MyScene2::toFile() {
     QString str = toJson();
-    QFile file("json.txt");
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json2.txt");
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream stream(&file);
@@ -229,8 +200,8 @@ void MyScene::toFile() {
     }
 }
 
-void MyScene::loadLinesFromFile() {
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
+void MyScene2::loadLinesFromFile() {
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json2.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();
@@ -258,6 +229,6 @@ void MyScene::loadLinesFromFile() {
     }
 }
 
-QVector<Path*> MyScene::getPaths() {
+QVector<Path*> MyScene2::getPaths() {
     return paths;
 }

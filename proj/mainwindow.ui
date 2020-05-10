@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>971</width>
-    <height>609</height>
+    <width>1000</width>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,6 +19,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QPushButton" name="Button_zoom_out">
           <property name="maximumSize">
@@ -26,6 +29,10 @@
             <width>25</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #005389;
+color: #FFF;</string>
           </property>
           <property name="text">
            <string>-</string>
@@ -62,6 +69,10 @@
             <height>25</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #005389;
+color: #FFF;</string>
+          </property>
           <property name="text">
            <string>+</string>
           </property>
@@ -84,8 +95,27 @@
       </item>
       <item>
        <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-weight: bold;
+font-size: 20px;</string>
+        </property>
         <property name="text">
-         <string>ICP MAP</string>
+         <string>MAP</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -103,17 +133,54 @@
        </spacer>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetMaximumSize</enum>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+        <item>
+         <widget class="QLabel" name="timeSpdLab">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>1x</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="timeShowLab">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>00 : 00 : 00</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="timePlayBtn">
+          <property name="styleSheet">
+           <string notr="true">background-color: #046aad;
+color: #FFF</string>
+          </property>
+          <property name="text">
+           <string>Play / Pause</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
@@ -130,87 +197,88 @@
     <item row="3" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
+       <widget class="QGraphicsView" name="graphicsView_path">
+        <property name="minimumSize">
+         <size>
+          <width>380</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1200</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer_7">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Preferred</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
+          <width>126</width>
           <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+           <widget class="QPushButton" name="spdDownBtn">
+            <property name="styleSheet">
+             <string notr="true">background-color: #005389;
+color: #FFF;</string>
             </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Maximum</enum>
+            <property name="text">
+             <string>&lt;&lt; 2x</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>150</height>
-             </size>
+            <property name="checkable">
+             <bool>false</bool>
             </property>
-           </spacer>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
+            <property name="default">
+             <bool>false</bool>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QPushButton" name="spdDownBtn">
-              <property name="text">
-               <string> &lt;&lt; 2x</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="spdRevBtn">
-              <property name="text">
-               <string>reverse</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="timeSpdLab">
-              <property name="text">
-               <string>1</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="spdUpBtn">
-              <property name="text">
-               <string>2x &gt;&gt;</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="spdRevBtn">
+            <property name="styleSheet">
+             <string notr="true">background-color: #046aad;
+color: #FFF</string>
+            </property>
+            <property name="text">
+             <string>reverse</string>
+            </property>
+           </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="timePlayBtn">
-              <property name="text">
-               <string>play/pause</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="timeShowLab">
-              <property name="text">
-               <string>00 : 00 : 00</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QPushButton" name="spdUpBtn">
+            <property name="styleSheet">
+             <string notr="true">background-color: #005389;
+color: #FFF;</string>
+            </property>
+            <property name="text">
+             <string>2x &gt;&gt;</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -225,7 +293,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>971</width>
+     <width>1000</width>
      <height>22</height>
     </rect>
    </property>

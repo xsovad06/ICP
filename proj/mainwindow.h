@@ -1,15 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
+#include <iostream>
+#include <stdlib.h>
 #include <QDebug>
 #include <QTimer>
 #include <QDateTime>
+#include <QJsonDocument>
+#include <QMainWindow>
 #include "myscene.h"
+#include "myscene2.h"
 #include "mylineitem.h"
 #include "path.h"
-#include <QJsonDocument>
 #include "drive.h"
 #include "schedule.h"
-#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,15 +24,21 @@ class MainWindow : public QMainWindow {
     public:
         MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
+        int actualMiniMapPath = -1;
+        bool deleted = false;
+        MyScene2* miniMap;
+        MyScene* map;
 
     private:
         void init_scene();
+        void init_scene2();
         Ui::MainWindow *ui;
         QTimer *myTimer;
         QTime *myTime;
         float timeSpeed;
         bool timeRev = false;
         QVector <Path*> paths;
+        QVector <Path*> paths2;
         Schedule *sched;
 
     private slots:
@@ -40,5 +50,6 @@ class MainWindow : public QMainWindow {
         void speedUp();
         void speedDown();
         void speedReverse();
+        void repaintMiniMap();
 };
 #endif // MAINWINDOW_H

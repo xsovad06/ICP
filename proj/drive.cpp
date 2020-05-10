@@ -6,14 +6,14 @@ Drive::Drive(Path * path, QGraphicsScene *scene) {
 }
 
 void Drive::move(bool timeRev) {
-    if (street == 0 && part < 0) {
+    if (street == 0 && part == -1) {
         part = 0;
     }
     if (street >= 0 && street < path->getPath().size()) {
         auto line = path->getPath().at(street);
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
         if (part >= 0 && part <= dur) {
-            if(tram!=nullptr&&scene)
+            if(tram != nullptr && scene)
             {
               //  scene->removeItem(tram);
                 delete tram;
@@ -23,20 +23,20 @@ void Drive::move(bool timeRev) {
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
             if (!timeRev) ++part;
-            else if (part>=0) --part;
-            /*if (street < path->getPath().size() - 1 && part == int(dur)) {
+            else if (part >= 0) --part;
+            if (street == street < path->getPath().size() - 1 && part == int(dur)) {
                 scene->removeItem(tram);
-            }*/
+            }
         }
-        else if (part==-1&&street==0) {
-            part=0;
+        else if (part == -1 && street == 0) {
+            part = 0;
         }
         else {
             if (!timeRev) {
                 ++street;
                 part = 0;
             }
-            else if (street>0) {
+            else if (street > 0) {
                 if ((street == path->getPath().size() -1) && (part > 0)) {
                     part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx()*line->line().dx()));
                 }
@@ -59,6 +59,7 @@ void Drive::moveBack(bool timeRev) {
     if (street >= 0 && street < path->getPath().size()) {
         auto line = path->getPath().at(street);
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
+
         if (part >= 0 && part <= dur) {
             //  scene->removeItem(tram);
               delete tram;
@@ -67,13 +68,10 @@ void Drive::moveBack(bool timeRev) {
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
             if (timeRev) ++part;
-            else if (part >= 0)
-            {
-                --part;
-            }
-         /*   if (street < path->getPath().size() -1 && part == dur) {
+            else if (part >= 0) --part;
+            if (street == street < path->getPath().size() -1 && part == dur) {
                 scene->removeItem(tram);
-            }*/
+            }
         }
         else {
             if (timeRev) {

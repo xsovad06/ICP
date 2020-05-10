@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->Button_zoom_in, SIGNAL(clicked()), this, SLOT(zoom_in()));
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
     connect(ui->zoom_slider, SIGNAL(valueChanged(int)), this, SLOT(zoom_slider(int)));
-
+    ui->zoom_slider->setValue(100);
     connect(myTimer, SIGNAL(timeout()), this, SLOT(onTimer()));
     connect(ui->timePlayBtn, SIGNAL(clicked()), this, SLOT(startTimer()));
     connect(ui->spdUpBtn, SIGNAL(clicked()), this, SLOT(speedUp()));
@@ -59,6 +59,7 @@ void MainWindow::init_scene() {
 
 void MainWindow::zoom_in() {
     auto actual_value = ui->zoom_slider->value();
+    qDebug()<<actual_value;
     if (actual_value != 100) {
         ui->graphicsView->scale(1.25, 1.25);
         ui->zoom_slider->setValue(ui->zoom_slider->value() + 10);
@@ -67,6 +68,7 @@ void MainWindow::zoom_in() {
 
 void MainWindow::zoom_out() {
     auto actual_value = ui->zoom_slider->value();
+    qDebug()<<actual_value;
     if (actual_value != 1) {
         ui->graphicsView->scale(0.8, 0.8);
         ui->zoom_slider->setValue(ui->zoom_slider->value() - 10);
@@ -74,8 +76,9 @@ void MainWindow::zoom_out() {
 }
 
 void MainWindow::zoom_slider(int n) {
+     qDebug()<<n;
     auto original_matrix = ui->graphicsView->transform();
-    qreal scale = n/10.0;
+    qreal scale = n/90.0;
     ui->graphicsView->setTransform(QTransform(scale, original_matrix.m12(), original_matrix.m21(), scale, original_matrix.dx(), original_matrix.dy()));
 }
 

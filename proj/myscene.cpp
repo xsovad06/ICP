@@ -232,7 +232,7 @@ void MyScene::toFile() {
 }
 
 void MyScene::loadLinesfromFile() {
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
+    QFile file("json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

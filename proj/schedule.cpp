@@ -1,27 +1,18 @@
 #include "schedule.h"
 
 Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
-   // allSpojs.insert(QTime(0,0,5,0),paths.at(0));
-   // allSpojs.insert(QTime(1,5,0,0),paths.at(0));
     this->drive1 = new Drive(paths.at(0), scene);
     this->drive2 = new Drive(paths.at(1), scene);
     this->drive3 = new Drive(paths.at(2), scene);
     this->drive4 = new Drive(paths.at(3), scene);
     this->drive5 = new Drive(paths.at(4), scene);
 
-    this->path1 = paths.at(0);
-    this->path2 = paths.at(1);
-    this->path3 = paths.at(2);
-    this->path4 = paths.at(3);
-    this->path5 = paths.at(4);
+    this->path1=paths.size()>0?paths.at(0):nullptr;
+    this->path2=paths.size()>1?paths.at(1):nullptr;
+    this->path3=paths.size()>2?paths.at(2):nullptr;
+    this->path4=paths.size()>3?paths.at(3):nullptr;
+    this->path5=paths.size()>4?paths.at(4):nullptr;
 
-   /* this->spoj1.append(QTime(0,0,5,0));
-    this->spoj1.append(QTime(0,5,5,0));
-    this->spoj2.append(QTime(1,0,5,0));
-    this->spoj2.append(QTime(0,1,5,0));
-    this->spoj3.append(QTime(0,4,5,0));
-    this->spoj4.append(QTime(1,2,0,0));
-    this->spoj5.append(QTime(1,1,0,0));*/
     this->scene = scene;
 }
 
@@ -114,8 +105,13 @@ Schedule::~Schedule() {
 void Schedule::loadTimes() {
     QList<QString> pathNames;
 
-    pathNames << path1->getName() << path2->getName() << path3->getName() << path4->getName() << path5->getName();
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/stops.txt");
+    pathNames<<(path1!=nullptr?path1->getName():"nothing");
+    pathNames<<(path2!=nullptr?path2->getName():"nothing");
+    pathNames<<(path3!=nullptr?path3->getName():"nothing");
+    pathNames<<(path4!=nullptr?path4->getName():"nothing");
+    pathNames<<(path5!=nullptr?path5->getName():"nothing");
+
+    QFile file("stops.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         QString line;

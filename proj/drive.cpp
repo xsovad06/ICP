@@ -6,7 +6,7 @@ Drive::Drive(Path * path, QGraphicsScene *scene) {
 }
 
 void Drive::move(bool timeRev) {
-    if (street == 0 && part == -1) {
+    if (street == 0 && part < 0) {
         part = 0;
     }
     if (street >= 0 && street < path->getPath().size()) {
@@ -24,9 +24,9 @@ void Drive::move(bool timeRev) {
             scene->addItem(tram);
             if (!timeRev) ++part;
             else if (part>=0) --part;
-            if (street == street < path->getPath().size() - 1 && part == int(dur)) {
+            /*if (street < path->getPath().size() - 1 && part == int(dur)) {
                 scene->removeItem(tram);
-            }
+            }*/
         }
         else if (part==-1&&street==0) {
             part=0;
@@ -67,10 +67,13 @@ void Drive::moveBack(bool timeRev) {
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
             if (timeRev) ++part;
-            else if (part >= 0) --part;
-            if (street == street < path->getPath().size() -1 && part == dur) {
-                scene->removeItem(tram);
+            else if (part >= 0)
+            {
+                --part;
             }
+         /*   if (street < path->getPath().size() -1 && part == dur) {
+                scene->removeItem(tram);
+            }*/
         }
         else {
             if (timeRev) {

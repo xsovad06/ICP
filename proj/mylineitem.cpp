@@ -14,6 +14,7 @@ void MyLineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawLine(line());
     painter->setPen(QPen({Qt::blue}, penWidthStop));
     painter->drawEllipse(line().pointAt(0), 3, 3);
+    painter->drawEllipse(line().pointAt(1), 3, 3);
 }
 
 void MyLineItem::setPenWidth(int penWidth, int penWidthStop) {

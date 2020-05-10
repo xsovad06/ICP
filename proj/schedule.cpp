@@ -1,5 +1,7 @@
 #include "schedule.h"
 
+#define W8ONENDSTOP 30
+
 Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
     this->drive1 = new Drive(paths.at(0), scene);
     this->drive2 = new Drive(paths.at(1), scene);
@@ -17,28 +19,14 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
 }
 
 void Schedule::start(QTime actTime, bool timeRev) {
-  /*  //for(auto sTime: allSpojs.keys())
-    for(auto sTime: spoj1)
-    {
-        if((sTime<=actTime) && (actTime <= sTime.addSecs(allSpojs.value(sTime)->getTotalTime())))
-        {
-            drive1->move(timeRev);
-        }
-        else if(sTime.addSecs(allSpojs.value(sTime)->getTotalTime()+30)<=actTime &&
-                actTime <= sTime.addSecs(allSpojs.value(sTime)->getTotalTime()*2+30))
-        {
-            drive1->moveBack(timeRev);
-        }
-    }*/
-
     for(auto sTime : spoj1)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path1->getTotalTime())))
+        if((sTime <= actTime) && (actTime <= sTime.addSecs(path1->getTotalTime()+10)))
         {
             drive1->move(timeRev);
         }
         else if(sTime.addSecs(path1->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + 30))
+                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + W8ONENDSTOP))
         {
             drive1->moveBack(timeRev);
         }
@@ -50,7 +38,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
             drive2->move(timeRev);
         }
         else if(sTime.addSecs(path2->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + 30))
+                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + W8ONENDSTOP))
         {
             drive2->moveBack(timeRev);
         }
@@ -62,7 +50,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
             drive3->move(timeRev);
         }
         else if(sTime.addSecs(path3->getTotalTime()+30) <= actTime &&
-                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + 30))
+                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + W8ONENDSTOP))
         {
             drive3->moveBack(timeRev);
         }
@@ -74,7 +62,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
             drive4->move(timeRev);
         }
         else if(sTime.addSecs(path4->getTotalTime()+30) <= actTime &&
-                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + 30))
+                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + W8ONENDSTOP))
         {
             drive4->moveBack(timeRev);
         }
@@ -86,7 +74,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
             drive5->move(timeRev);
         }
         else if(sTime.addSecs(path5->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + 30))
+                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + W8ONENDSTOP))
         {
             drive5->moveBack(timeRev);
         }

@@ -9,7 +9,7 @@ Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : Q
         auto *myline = new MyLineItem(clr);
         myline->setLine(line);
         int timeInSec = sqrt(line.dy() * line.dy() + line.dx() * line.dx());
-        this->totalTime = this->totalTime + timeInSec;
+        this->totalTime = this->totalTime + timeInSec +2;
         this->path<<myline;
     }
     this->size = i;

@@ -1,4 +1,5 @@
 #include "path.h"
+#define TIMERESERVE 3
 
 Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : QObject(parent) {
     this->name = newName;
@@ -10,7 +11,7 @@ Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : Q
         myline->setLine(line);
         this->path<<myline;
         int timeInSec = sqrt(line.dy() * line.dy() + line.dx() * line.dx());
-        this->totalTime = this->totalTime + timeInSec;
+        this->totalTime = this->totalTime + timeInSec +TIMERESERVE;
     }
     this->size = i;
 }

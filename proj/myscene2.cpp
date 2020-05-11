@@ -191,7 +191,7 @@ QString MyScene2::toJson() {
 
 void MyScene2::toFile() {
     QString str = toJson();
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json2.txt");
+    QFile file("json2.txt");
     if(file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream stream(&file);
@@ -201,7 +201,7 @@ void MyScene2::toFile() {
 }
 
 void MyScene2::loadLinesFromFile() {
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json2.txt");
+    QFile file("json2.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

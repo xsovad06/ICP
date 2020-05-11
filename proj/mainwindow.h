@@ -24,10 +24,7 @@ class MainWindow : public QMainWindow {
     public:
         MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
-        int actualMiniMapPath = -1;
-        bool deleted = false;
-        MyScene2* miniMap;
-        MyScene* map;
+
 
     private:
         void init_scene();
@@ -40,6 +37,10 @@ class MainWindow : public QMainWindow {
         QVector <Path*> paths;
         QVector <Path*> paths2;
         Schedule *sched;
+        int actualMiniMapPath = -1;
+        bool deleted = false;
+        MyScene2* miniMap;
+        MyScene* map;
 
     private slots:
         void zoom_in();

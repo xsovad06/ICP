@@ -1,27 +1,19 @@
 #include "schedule.h"
 
+#define WAITONEND 30
+
 Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
-   // allSpojs.insert(QTime(0,0,5,0),paths.at(0));
-   // allSpojs.insert(QTime(1,5,0,0),paths.at(0));
     this->drive1 = new Drive(paths.at(0), scene);
     this->drive2 = new Drive(paths.at(1), scene);
     this->drive3 = new Drive(paths.at(2), scene);
     this->drive4 = new Drive(paths.at(3), scene);
     this->drive5 = new Drive(paths.at(4), scene);
 
-    this->path1 = paths.at(0);
-    this->path2 = paths.at(1);
-    this->path3 = paths.at(2);
-    this->path4 = paths.at(3);
-    this->path5 = paths.at(4);
-
-   /* this->spoj1.append(QTime(0,0,5,0));
-    this->spoj1.append(QTime(0,5,5,0));
-    this->spoj2.append(QTime(1,0,5,0));
-    this->spoj2.append(QTime(0,1,5,0));
-    this->spoj3.append(QTime(0,4,5,0));
-    this->spoj4.append(QTime(1,2,0,0));
-    this->spoj5.append(QTime(1,1,0,0));*/
+    this->path1=paths.size()>0?paths.at(0):nullptr;
+    this->path2=paths.size()>1?paths.at(1):nullptr;
+    this->path3=paths.size()>2?paths.at(2):nullptr;
+    this->path4=paths.size()>3?paths.at(3):nullptr;
+    this->path5=paths.size()>4?paths.at(4):nullptr;
     this->scene = scene;
 }
 
@@ -32,8 +24,8 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive1->move(timeRev);
         }
-        else if(sTime.addSecs(path1->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + 30))
+        else if(sTime.addSecs(path1->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + WAITONEND))
         {
             drive1->moveBack(timeRev);
         }
@@ -44,8 +36,8 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive2->move(timeRev);
         }
-        else if(sTime.addSecs(path2->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + 30))
+        else if(sTime.addSecs(path2->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + WAITONEND))
         {
             drive2->moveBack(timeRev);
         }
@@ -56,8 +48,8 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive3->move(timeRev);
         }
-        else if(sTime.addSecs(path3->getTotalTime()+30) <= actTime &&
-                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + 30))
+        else if(sTime.addSecs(path3->getTotalTime()+WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + WAITONEND))
         {
             drive3->moveBack(timeRev);
         }
@@ -68,8 +60,8 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive4->move(timeRev);
         }
-        else if(sTime.addSecs(path4->getTotalTime()+30) <= actTime &&
-                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + 30))
+        else if(sTime.addSecs(path4->getTotalTime()+WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + WAITONEND))
         {
             drive4->moveBack(timeRev);
         }
@@ -80,8 +72,8 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive5->move(timeRev);
         }
-        else if(sTime.addSecs(path5->getTotalTime() + 30) <= actTime &&
-                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + 30))
+        else if(sTime.addSecs(path5->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + WAITONEND))
         {
             drive5->moveBack(timeRev);
         }
@@ -100,8 +92,13 @@ Schedule::~Schedule() {
 void Schedule::loadTimes() {
     QList<QString> pathNames;
 
-    pathNames << path1->getName() << path2->getName() << path3->getName() << path4->getName() << path5->getName();
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/stops.txt");
+    pathNames<<(path1!=nullptr?path1->getName():"nothing");
+    pathNames<<(path2!=nullptr?path2->getName():"nothing");
+    pathNames<<(path3!=nullptr?path3->getName():"nothing");
+    pathNames<<(path4!=nullptr?path4->getName():"nothing");
+    pathNames<<(path5!=nullptr?path5->getName():"nothing");
+
+    QFile file("stops.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         QString line;

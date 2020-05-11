@@ -6,45 +6,50 @@ Drive::Drive(Path * path, QGraphicsScene *scene) {
 }
 
 void Drive::move(bool timeRev) {
-    if (street == 0 && part == -1) {
+    if (street == 0 && part <0) {
         part = 0;
     }
+                                //number of street in this path
     if (street >= 0 && street < path->getPath().size()) {
+        //concrete street of path
         auto line = path->getPath().at(street);
+        // duration of the street in pixels aka seconds
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
+        //if tram is in interval of the street
         if (part >= 0 && part <= dur) {
-            if(tram != nullptr && scene)
-            {
-              //  scene->removeItem(tram);
+            if(tram != nullptr){
+              //delete tram from last move
                 delete tram;
             }
+            //start point and end point of street
             auto s = line->line().p1();
             auto e = line->line().p2();
+            //paint a new tram position
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
-            if (!timeRev) ++part;
-            else if (part >= 0) --part;
-            if (street == street < path->getPath().size() - 1 && part == int(dur)) {
-                scene->removeItem(tram);
+            //change tram position
+            if (!timeRev){
+                ++part;
+            }
+            else if (part >= 0){
+            --part;
             }
         }
-        else if (part == -1 && street == 0) {
-            part = 0;
-        }
         else {
+            //move to another street
             if (!timeRev) {
                 ++street;
                 part = 0;
             }
-            else if (street > 0) {
-                if ((street == path->getPath().size() -1) && (part > 0)) {
-                    part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx()*line->line().dx()));
-                }
-                else {
-                    --street;
-                    line = path->getPath().at(street);
-                    part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
-                }
+            // time is reversed, dont change street
+            else if ((part > 0)) {
+                part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx()*line->line().dx()));
+            }
+            // change street
+            else {
+                --street;
+                line = path->getPath().at(street);
+                part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
             }
         }
      }
@@ -61,16 +66,16 @@ void Drive::moveBack(bool timeRev) {
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
 
         if (part >= 0 && part <= dur) {
-            //  scene->removeItem(tram);
-              delete tram;
+            delete tram;
             auto s = line->line().p1();
             auto e = line->line().p2();
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
-            if (timeRev) ++part;
-            else if (part >= 0) --part;
-            if (street == street < path->getPath().size() -1 && part == dur) {
-                scene->removeItem(tram);
+            if (timeRev){
+                ++part;
+            }
+            else if (part >= 0){
+                --part;
             }
         }
         else {
@@ -84,7 +89,7 @@ void Drive::moveBack(bool timeRev) {
                 }
             }
             else if (street > 0) {
-                if ((street == path->getPath().size() -1) && (part > 0)) {
+                if ((part > 0)) {
                     part = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
                 }
                 else {

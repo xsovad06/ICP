@@ -141,9 +141,22 @@ font-size: 20px;</string>
          <widget class="QLabel" name="timeSpdLab">
           <property name="minimumSize">
            <size>
-            <width>50</width>
+            <width>65</width>
             <height>0</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Samyak Tamil</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 2px solid #005389;
+border-radius: 4px;
+color: #005389;</string>
           </property>
           <property name="text">
            <string>1x</string>
@@ -154,23 +167,12 @@ font-size: 20px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="timeShowLab">
-          <property name="minimumSize">
-           <size>
-            <width>90</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>00 : 00 : 00</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="timePlayBtn">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color: #046aad;
 color: #FFF</string>
@@ -281,6 +283,35 @@ color: #FFF;</string>
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="timeShowLab">
+          <property name="minimumSize">
+           <size>
+            <width>90</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Samyak Tamil</family>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 2px solid #005389;
+border-radius: 4px;
+color: #005389;</string>
+          </property>
+          <property name="text">
+           <string>00 : 00 : 00</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <iostream>
 #include <stdlib.h>
 #include <QDebug>
 #include <QTimer>
@@ -24,7 +23,8 @@ class MainWindow : public QMainWindow {
     public:
         MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
-
+        int getPathNumber();
+        void setActualMiniMapPath(int value);
 
     private:
         void init_scene();

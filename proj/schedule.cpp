@@ -48,7 +48,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive3->move(timeRev);
         }
-        else if(sTime.addSecs(path3->getTotalTime()+WAITONEND) <= actTime &&
+        else if(sTime.addSecs(path3->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path3->getTotalTime() * 2 + WAITONEND))
         {
             drive3->moveBack(timeRev);
@@ -60,7 +60,7 @@ void Schedule::start(QTime actTime, bool timeRev) {
         {
             drive4->move(timeRev);
         }
-        else if(sTime.addSecs(path4->getTotalTime()+WAITONEND) <= actTime &&
+        else if(sTime.addSecs(path4->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path4->getTotalTime() * 2 + WAITONEND))
         {
             drive4->moveBack(timeRev);
@@ -92,13 +92,13 @@ Schedule::~Schedule() {
 void Schedule::loadTimes() {
     QList<QString> pathNames;
 
-    pathNames<<(path1!=nullptr?path1->getName():"nothing");
-    pathNames<<(path2!=nullptr?path2->getName():"nothing");
-    pathNames<<(path3!=nullptr?path3->getName():"nothing");
-    pathNames<<(path4!=nullptr?path4->getName():"nothing");
-    pathNames<<(path5!=nullptr?path5->getName():"nothing");
+    pathNames<<(path1 != nullptr?path1->getName():"nothing");
+    pathNames<<(path2 != nullptr?path2->getName():"nothing");
+    pathNames<<(path3 != nullptr?path3->getName():"nothing");
+    pathNames<<(path4 != nullptr?path4->getName():"nothing");
+    pathNames<<(path5 != nullptr?path5->getName():"nothing");
 
-    QFile file("stops.txt");
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/stops.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         QString line;

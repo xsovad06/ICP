@@ -87,13 +87,25 @@ void MainWindow::repaintMiniMap() {
         miniMap->setBackgroundBrush(Qt::white);
         deleted = true;
     }
-    QString street = map->highlighted_name;
-    if (street != "") {
-        QString number =  street.remove(0,6);;
-        actualMiniMapPath = number.toInt();
+    if (getPathNumber() == 0) {
+        int i = 0;
+        int x = 0;
+        int y = 0;
+        auto *text_name = new QGraphicsSimpleTextItem();
+        text_name->setText("Stop " + QString::number(i));
+        text_name->setRotation(-45);
+        text_name->setPos(x,y);
+        miniMap->addItem(text_name);
         foreach(QGraphicsItem *line, paths2.at(actualMiniMapPath)->getPath())
         {
+            x = x + 60;
+            auto *text = new QGraphicsSimpleTextItem();
+            text->setText("Stop " + QString::number(i));
+            text->setRotation(-45);
+            text->setPos(x,y);
+            miniMap->addItem(text);
             miniMap->addItem(line);
+            ++i;
         }
         deleted = false;
     }
@@ -170,4 +182,18 @@ void MainWindow::speedDown() {
 
 void MainWindow::speedReverse() {
    timeRev =! timeRev;
+}
+
+void MainWindow::setActualMiniMapPath(int value) {
+    actualMiniMapPath = value;
+}
+
+int MainWindow::getPathNumber() {
+    if (map->highlighted_name != "") {
+        QString street = map->highlighted_name;
+        QString number = street.remove(0,6);;
+        setActualMiniMapPath(number.toInt());
+        return 0;
+    }
+    else return -1;
 }

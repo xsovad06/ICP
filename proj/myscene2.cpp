@@ -201,7 +201,7 @@ void MyScene2::toFile() {
 }
 
 void MyScene2::loadLinesFromFile() {
-    QFile file("json2.txt");
+    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json2.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();
@@ -219,9 +219,9 @@ void MyScene2::loadLinesFromFile() {
             {
                 int x1 = val.toObject().value("x1").toInt();
                 int x2 = val.toObject().value("x2").toInt();
-                int y1 = val.toObject().value("y1").toInt();
-                int y2 = val.toObject().value("y2").toInt();
-                lineGroup << QLine(x1, y1, x2, y2);
+                //int y1 = val.toObject().value("y1").toInt();
+                //int y2 = val.toObject().value("y2").toInt();
+                lineGroup << QLine(x1, 35, x2, 35);
             }
             pathPtr = new Path("street" + QString::number(i), lineGroup, clrs.at(i % 5));
             paths.append(pathPtr);

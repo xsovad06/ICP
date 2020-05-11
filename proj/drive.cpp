@@ -6,7 +6,7 @@ Drive::Drive(Path * path, QGraphicsScene *scene) {
 }
 
 void Drive::move(bool timeRev) {
-    if (street == 0 && part <0) {
+    if (street == 0 && part < 0) {
         part = 0;
     }
                                 //number of street in this path
@@ -28,10 +28,10 @@ void Drive::move(bool timeRev) {
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
             //change tram position
-            if (!timeRev){
+            if (!timeRev) {
                 ++part;
             }
-            else if (part >= 0){
+            else if (part >= 0) {
             --part;
             }
         }
@@ -71,10 +71,10 @@ void Drive::moveBack(bool timeRev) {
             auto e = line->line().p2();
             tram = new Tram(&s, &e, part / dur);
             scene->addItem(tram);
-            if (timeRev){
+            if (timeRev) {
                 ++part;
             }
-            else if (part >= 0){
+            else if (part >= 0) {
                 --part;
             }
         }

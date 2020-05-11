@@ -6,7 +6,7 @@ Drive::Drive(Path * path, QGraphicsScene *scene) {
 }
 
 void Drive::move(bool timeRev) {
-    revDirection=false;
+    revDirection = false;
     if (street == 0 && part < 0) {
         part = 0;
     }
@@ -63,7 +63,7 @@ void Drive::move(bool timeRev) {
 
 void Drive::moveBack(bool timeRev) {
     if (street >= 0 && street < path->getPath().size()) {
-        revDirection=true;
+        revDirection = true;
         auto line = path->getPath().at(street);
         double dur = (sqrt(line->line().dy() * line->line().dy() + line->line().dx() * line->line().dx()));
 
@@ -101,7 +101,7 @@ void Drive::moveBack(bool timeRev) {
                 }
             }
         }
-     }
+    }
     else {
         --street;
         auto line = path->getPath().at(street);
@@ -111,34 +111,27 @@ void Drive::moveBack(bool timeRev) {
 
 int Drive::getNextStreet()
 {
-    int max = path->getSize()-1;
-    if(!revDirection){
-        if(street>max){
-            return max+1;
+    int max = path->getSize() -1;
+    if (!revDirection){
+        if (street > max) {
+            return max + 1;
         }
-        else if(street<0){
+        else if(street < 0) {
             return 0;
         }
-        else{
+        else {
             return street+1;
         }
     }
-    else{
-        if(street>max){
+    else {
+        if (street > max){
             return max;
         }
-        else if(street<0){
+        else if (street < 0) {
             return 0;
         }
-        else{
+        else {
             return street;
         }
     }
-
 }
-
-
-
-
-
-

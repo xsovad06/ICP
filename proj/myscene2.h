@@ -13,6 +13,7 @@
 //!  Class represents small scene with highlighted path.
 class MyScene2 : public QGraphicsScene {
     public:
+        //! A constructor.
         explicit MyScene2(QObject *parent = nullptr);
         //! Method for creating path.
         /*!
@@ -40,6 +41,9 @@ class MyScene2 : public QGraphicsScene {
         */
         void createStreet5(QColor street_color = nullptr);
         //! Convert string with street coordinates to json QString.
+        /*!
+          \return  String with coordinates of items from the map
+        */
         QString toJson();
         //! Save json QString to file.
         void toFile();
@@ -48,15 +52,16 @@ class MyScene2 : public QGraphicsScene {
           Load map of coordinates from file, store them to the list of lines.
         */
         void loadLinesFromFile();
-        //! Return created vector.
+        //! Get paths from the map.
+        /*!
+          \return  Vector of paths from the map
+        */
         QVector<Path*> getPaths();
 
     protected:
         QList<MyLineItem*> lineList;    /*!< A list of references to MyLineItems object*/
         QList<QLine> loadedLines;       /*!< A list of Qline objects */
         QVector<Path*> paths;           /*!< A Vector of references to Path objects */
-    signals:
-        void valueChanged(QString name);
 };
 
 #endif // MYSCENE2_H

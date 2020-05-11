@@ -11,7 +11,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     myTimer = new QTimer(this);
     myTimer->setInterval(1000 / timeSpeed);
     myTime = new QTime(0, 0, 0, 0);
+
     init_scene();
+    init_scene2();
 
     sched = new Schedule(paths, ui->graphicsView->scene());
     sched->loadTimes();
@@ -34,37 +36,22 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::init_scene() {
-    auto *mini_map_scene = new MyScene2(ui->graphicsView_path);
-    ui->graphicsView_path->setScene(mini_map_scene);
-
-//////////////////Create and save mini map//////////////////////
-    /*mini_map_scene->createStreet1();
-    mini_map_scene->createStreet2(Qt::lightGray);
-    mini_map_scene->createStreet3(Qt::darkGreen);
-    mini_map_scene->createStreet4(Qt::yellow);
-    mini_map_scene->createStreet5(Qt::green);
-    mini_map_scene->toFile();*/
-////////////////////////////////////////////////////////////////
-////////////////////////// load mini map ////////////////////////////
-    mini_map_scene->loadLinesFromFile();
-    paths2 = mini_map_scene->getPaths();
-////////////////////////////////////////////////////////////////
-
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
 
-////////////////Create and save map////////////////////////
+
+/******************* Create and save mini map **********************/
   /*map_scene->createStreet1();
     map_scene->createStreet2(Qt::lightGray);
     map_scene->createStreet3(Qt::darkGreen);
     map_scene->createStreet4(Qt::yellow);
     map_scene->createStreet5(Qt::green);
     map_scene->toFile();*/
-//////////////////////////////////////////////////////////
-  ////////////////////// load map ////////////////
+
+/************************* Load mini map ***************************/
     map_scene->loadLinesFromFile();
     paths = map_scene->getPaths();
-///////////////////////////////////////////////////////    
+/*******************************************************************/
 
     for(int i = 0; i < paths.size(); ++i)
     {
@@ -74,20 +61,41 @@ void MainWindow::init_scene() {
         }
     }
     map = map_scene;
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+}
+
+void MainWindow::init_scene2() {
+    auto *mini_map_scene = new MyScene2(ui->graphicsView_path);
+    ui->graphicsView_path->setScene(mini_map_scene);
+
+/******************* Create and save mini map **********************/
+    /*mini_map_scene->createStreet1();
+    mini_map_scene->createStreet2(Qt::lightGray);
+    mini_map_scene->createStreet3(Qt::darkGreen);
+    mini_map_scene->createStreet4(Qt::yellow);
+    mini_map_scene->createStreet5(Qt::green);
+    mini_map_scene->toFile();*/
+
+/************************* Load mini map ***************************/
+    mini_map_scene->loadLinesFromFile();
+    paths2 = mini_map_scene->getPaths();
+/*******************************************************************/
+
     miniMap = mini_map_scene;
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::repaintMiniMap() {
-    if (!deleted && (actualMiniMapPath != -1)) {
+    if (!sceneItemsDeleted && (actualMiniMapPath != -1)) {
         foreach(QGraphicsItem *line, miniMap->items())
         {
             miniMap->removeItem(line);
         }
         miniMap->setBackgroundBrush(Qt::white);
-        deleted = true;
+        sceneItemsDeleted = true;
     }
     if (getPathNumber() == 0) {
+        int nextStopIndex = sched->getDriveStreet(paths.at(actualMiniMapPath)->getName());
         int i = 0;
         int x = 0;
         int y = 0;
@@ -99,15 +107,20 @@ void MainWindow::repaintMiniMap() {
         foreach(QGraphicsItem *line, paths2.at(actualMiniMapPath)->getPath())
         {
             x = x + 60;
+            ++i;
             auto *text = new QGraphicsSimpleTextItem();
             text->setText("Stop " + QString::number(i));
             text->setRotation(-45);
             text->setPos(x,y);
             miniMap->addItem(text);
             miniMap->addItem(line);
-            ++i;
         }
-        deleted = false;
+        sceneItemsDeleted = false;
+        miniMap->addEllipse(QRectF((nextStopIndex * 60) -5, 15, 8,8), QPen({Qt::red},9));
+        auto *text = new QGraphicsTextItem("Next stop");
+        text->setPos((nextStopIndex * 60) -5, 40);
+        text->setDefaultTextColor(Qt::red);
+        miniMap->addItem(text);
     }
     ui->graphicsView_path->setRenderHint(QPainter::Antialiasing);
 }
@@ -154,15 +167,16 @@ void  MainWindow::onTimer() {
     }
 
     myTimer->setInterval(1000 / timeSpeed);
-    // Repaint scene
+    // Hard repaint scene
     ui->graphicsView->scale(1.00000000001, 1.00000000001);
 
     /************************** ANIMATION ****************************/
     sched->start(*myTime, timeRev);
+
 }
 
 void MainWindow::speedUp() {
-    if(timeSpeed != 2048) {
+    if(timeSpeed != 1024) {
         timeSpeed *= 2;
         QString speed;
         QTextStream(&speed) << timeSpeed;

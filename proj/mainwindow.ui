@@ -190,8 +190,8 @@ color: #FFF</string>
      <widget class="QGraphicsView" name="graphicsView">
       <property name="minimumSize">
        <size>
-        <width>0</width>
-        <height>450</height>
+        <width>800</width>
+        <height>470</height>
        </size>
       </property>
      </widget>
@@ -202,8 +202,8 @@ color: #FFF</string>
        <widget class="QGraphicsView" name="graphicsView_path">
         <property name="minimumSize">
          <size>
-          <width>380</width>
-          <height>0</height>
+          <width>675</width>
+          <height>115</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -224,7 +224,7 @@ color: #FFF</string>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>126</width>
+          <width>80</width>
           <height>20</height>
          </size>
         </property>

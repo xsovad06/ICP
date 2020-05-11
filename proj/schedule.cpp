@@ -10,11 +10,11 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
     this->drive5 = new Drive(paths.at(4), scene);
 
 
-    this->path1=paths.size()>0?paths.at(0):nullptr;
-    this->path2=paths.size()>1?paths.at(1):nullptr;
-    this->path3=paths.size()>2?paths.at(2):nullptr;
-    this->path4=paths.size()>3?paths.at(3):nullptr;
-    this->path5=paths.size()>4?paths.at(4):nullptr;
+    this->path1 = paths.size() > 0 ? paths.at(0) : nullptr;
+    this->path2 = paths.size() > 1 ? paths.at(1) : nullptr;
+    this->path3 = paths.size() > 2 ? paths.at(2) : nullptr;
+    this->path4 = paths.size() > 3 ? paths.at(3) : nullptr;
+    this->path5 = paths.size() > 4 ? paths.at(4) : nullptr;
 
     pathNames<<(path1 != nullptr?path1->getName():"nothing");
     pathNames<<(path2 != nullptr?path2->getName():"nothing");
@@ -157,37 +157,22 @@ void Schedule::loadTimes() {
 
 int Schedule::getDriveStreet(QString pathName)
 {
-    if(pathName==pathNames.at(0)){
+    if (pathName == pathNames.at(0)) {
         return drive1->getNextStreet();
     }
-    else if(pathName==pathName.at(1)){
+    else if (pathName == pathNames.at(1)) {
         return drive2->getNextStreet();
     }
-    else if(pathName==pathName.at(2)){
+    else if (pathName == pathNames.at(2)) {
         return drive3->getNextStreet();
     }
-    else if(pathName==pathName.at(3)){
+    else if (pathName == pathNames.at(3)) {
         return drive4->getNextStreet();
     }
-    else if(pathName==pathName.at(4)){
+    else if (pathName == pathNames.at(4)) {
         return drive5->getNextStreet();
     }
-    else{
+    else {
         return -1;
     }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

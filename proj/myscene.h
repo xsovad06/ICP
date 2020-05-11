@@ -65,6 +65,7 @@ class MyScene : public QGraphicsScene {
 
         bool pathHighlighted = false;   /*!< When path highlighted then true, false otherwise*/
         QString highlighted_name;       /*!< Name of the highlighted path*/
+        int pathHighlightedIndex;       /*!< Index of the highlighted path*/
 
     protected:
         //! Method for highlighting path when clicked on the street.

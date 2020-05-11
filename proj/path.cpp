@@ -17,7 +17,7 @@ Path::Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent) : Q
 }
 
 int Path::getSize() {
-    return this->size;
+    return size;
 }
 
 QList <MyLineItem*> Path::getPath() {
@@ -36,6 +36,13 @@ QString Path::getName() {
 }
 
 int Path::getTotalTime() {
-    return this->totalTime;
+    return totalTime;
 }
 
+bool Path::getHighlighted() {
+    return highlighted;
+}
+
+void Path::setHighlighted(bool value) {
+    highlighted = value;
+}

@@ -11,18 +11,35 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
                 foreach(MyLineItem *line, paths.at(i)->getPath())
                 {
                    if (line == street) {
+                       // If not highlighted
                        if (!pathHighlighted) {
+                           // Highlighted new path
                            paths.at(i)->setPathWidth(7, 9);
-                           paths.at(i)->highlighted = !paths.at(i)->highlighted;
+                           paths.at(i)->setHighlighted(true);
                            pathHighlighted = !pathHighlighted;
                            highlighted_name = paths.at(i)->getName();
+                           pathHighlightedIndex = i;
                        }
+                       // If highlighted
                        else {
-                            if(paths.at(i)->highlighted) {
-                                paths.at(i)->setPathWidth(4, 6);
-                                paths.at(i)->highlighted = !paths.at(i)->highlighted;
-                                pathHighlighted = !pathHighlighted;
-                            }
+                           // Clicked on highlighted path
+                           if (paths.at(i)->getHighlighted()) {
+                               // Unhighlighted previous path
+                               paths.at(i)->setPathWidth(4, 6);
+                               paths.at(i)->setHighlighted(false);
+                               pathHighlighted = !pathHighlighted;
+                           }
+                           // Clicked on other path than highlighted one
+                           else {
+                               // Unhighlighted previous path
+                               paths.at(pathHighlightedIndex)->setPathWidth(4, 6);
+                               paths.at(pathHighlightedIndex)->setHighlighted(false);
+                               // Highlighted new path
+                               paths.at(i)->setPathWidth(7, 9);
+                               paths.at(i)->setHighlighted(true);
+                               highlighted_name = paths.at(i)->getName();
+                               pathHighlightedIndex = i;
+                           }
                        }
                    }
                 }
@@ -230,7 +247,7 @@ void MyScene::toFile() {
 }
 
 void MyScene::loadLinesFromFile() {
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/json.txt");
+    QFile file("json.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QByteArray data = file.readAll();

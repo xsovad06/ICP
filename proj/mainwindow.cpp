@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->Button_zoom_out, SIGNAL(clicked()), this, SLOT(zoom_out()));
     connect(ui->zoom_slider, SIGNAL(valueChanged(int)), this, SLOT(zoom_slider(int)));
     ui->zoom_slider->setValue(100);
+
     connect(myTimer, SIGNAL(timeout()), this, SLOT(onTimer()));
     connect(ui->timePlayBtn, SIGNAL(clicked()), this, SLOT(startTimer()));
     connect(ui->spdUpBtn, SIGNAL(clicked()), this, SLOT(speedUp()));
@@ -32,13 +33,16 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 }
 
 MainWindow::~MainWindow() {
+    foreach(QGraphicsItem *line, miniMap->items())
+    {
+        delete line;
+    }
     delete ui;
 }
 
 void MainWindow::init_scene() {
     auto *map_scene = new MyScene(ui->graphicsView);
     ui->graphicsView->setScene(map_scene);
-
 
 /******************* Create and save mini map **********************/
   /*map_scene->createStreet1();
@@ -82,7 +86,6 @@ void MainWindow::init_scene2() {
 /*******************************************************************/
 
     miniMap = mini_map_scene;
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::repaintMiniMap() {
@@ -116,9 +119,9 @@ void MainWindow::repaintMiniMap() {
             miniMap->addItem(line);
         }
         sceneItemsDeleted = false;
-        miniMap->addEllipse(QRectF((nextStopIndex * 60) -5, 15, 8,8), QPen({Qt::red},9));
+        miniMap->addEllipse(QRectF((nextStopIndex * 60) -5, 15, 8, 8), QPen({Qt::red},9));
         auto *text = new QGraphicsTextItem("Next stop");
-        text->setPos((nextStopIndex * 60) -5, 40);
+        text->setPos((nextStopIndex * 60) -35, 40);
         text->setDefaultTextColor(Qt::red);
         miniMap->addItem(text);
     }

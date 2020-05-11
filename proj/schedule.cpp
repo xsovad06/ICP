@@ -2,7 +2,7 @@
 
 #define WAITONEND 30
 
-Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
+Schedule::Schedule(QVector<Path*> paths, QGraphicsScene *scene) {
     this->drive1 = new Drive(paths.at(0), scene);
     this->drive2 = new Drive(paths.at(1), scene);
     this->drive3 = new Drive(paths.at(2), scene);
@@ -16,11 +16,11 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
     this->path4 = paths.size() > 3 ? paths.at(3) : nullptr;
     this->path5 = paths.size() > 4 ? paths.at(4) : nullptr;
 
-    pathNames<<(path1 != nullptr?path1->getName():"nothing");
-    pathNames<<(path2 != nullptr?path2->getName():"nothing");
-    pathNames<<(path3 != nullptr?path3->getName():"nothing");
-    pathNames<<(path4 != nullptr?path4->getName():"nothing");
-    pathNames<<(path5 != nullptr?path5->getName():"nothing");
+    pathNames<<(path1 != nullptr ? path1->getName() : "nothing");
+    pathNames<<(path2 != nullptr ? path2->getName() : "nothing");
+    pathNames<<(path3 != nullptr ? path3->getName() : "nothing");
+    pathNames<<(path4 != nullptr ? path4->getName() : "nothing");
+    pathNames<<(path5 != nullptr ? path5->getName() : "nothing");
 
     this->scene = scene;
 }
@@ -28,61 +28,51 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
 void Schedule::start(QTime actTime, bool timeRev) {
     for(auto sTime : spoj1)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path1->getTotalTime())))
-        {
+        if ((sTime <= actTime) && (actTime <= sTime.addSecs(path1->getTotalTime()))) {
             drive1->move(timeRev);
         }
-        else if(sTime.addSecs(path1->getTotalTime() + WAITONEND) <= actTime &&
-                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + WAITONEND))
-        {
+        else if (sTime.addSecs(path1->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path1->getTotalTime() * 2 + WAITONEND)) {
             drive1->moveBack(timeRev);
         }
     }
     for(auto sTime : spoj2)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path2->getTotalTime())))
-        {
+        if ((sTime <= actTime) && (actTime <= sTime.addSecs(path2->getTotalTime()))) {
             drive2->move(timeRev);
         }
-        else if(sTime.addSecs(path2->getTotalTime() + WAITONEND) <= actTime &&
-                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + WAITONEND))
-        {
+        else if (sTime.addSecs(path2->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path2->getTotalTime() * 2 + WAITONEND)) {
             drive2->moveBack(timeRev);
         }
     }
     for(auto sTime : spoj3)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path3->getTotalTime())))
-        {
+        if ((sTime <= actTime) && (actTime <= sTime.addSecs(path3->getTotalTime()))) {
             drive3->move(timeRev);
         }
-        else if(sTime.addSecs(path3->getTotalTime() + WAITONEND) <= actTime &&
-                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + WAITONEND))
-        {
+        else if (sTime.addSecs(path3->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path3->getTotalTime() * 2 + WAITONEND)) {
             drive3->moveBack(timeRev);
         }
     }
     for(auto sTime : spoj4)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path4->getTotalTime())))
-        {
+        if ((sTime <= actTime) && (actTime <= sTime.addSecs(path4->getTotalTime()))) {
             drive4->move(timeRev);
         }
-        else if(sTime.addSecs(path4->getTotalTime() + WAITONEND) <= actTime &&
-                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + WAITONEND))
-        {
+        else if (sTime.addSecs(path4->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path4->getTotalTime() * 2 + WAITONEND)) {
             drive4->moveBack(timeRev);
         }
     }
     for(auto sTime : spoj5)
     {
-        if((sTime <= actTime) && (actTime <= sTime.addSecs(path5->getTotalTime())))
-        {
+        if ((sTime <= actTime) && (actTime <= sTime.addSecs(path5->getTotalTime()))) {
             drive5->move(timeRev);
         }
-        else if(sTime.addSecs(path5->getTotalTime() + WAITONEND) <= actTime &&
-                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + WAITONEND))
-        {
+        else if (sTime.addSecs(path5->getTotalTime() + WAITONEND) <= actTime &&
+                actTime <= sTime.addSecs(path5->getTotalTime() * 2 + WAITONEND)) {
             drive5->moveBack(timeRev);
         }
     }
@@ -127,7 +117,7 @@ void Schedule::loadTimes() {
                 }
                 else if(lineList.first() == pathNames.at(2)) {
                     lineList.removeFirst();
-                    for(auto time: lineList)
+                    for(auto time : lineList)
                     {
                         spoj3 << QTime::fromString(time);
                     }

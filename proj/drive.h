@@ -13,6 +13,7 @@ class Drive {
         void move(bool timeRev);
         void moveBack(bool timeRev);
         void setDirection(bool reverse);
+        int getNextStreet();
 
     private:
         Path *path;
@@ -21,6 +22,7 @@ class Drive {
         Tram *tram = nullptr;
         int street = 0;
         double part= 0;
+        bool revDirection=false;
 };
 
 #endif // DRIVE_H

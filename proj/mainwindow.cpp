@@ -159,7 +159,6 @@ void  MainWindow::onTimer() {
 
     /************************** ANIMATION ****************************/
     sched->start(*myTime, timeRev);
-
 }
 
 void MainWindow::speedUp() {

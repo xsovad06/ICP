@@ -13,10 +13,12 @@ class Schedule {
         ~Schedule();
         void start(QTime actTime,bool timeRev);
         void loadTimes();
+        int getDriveStreet(QString pathName);
 
     private:
         QMap <QTime,Path*> allSpojs;
         QGraphicsScene *scene;
+        QList<QString> pathNames;
         QList<QTime> spoj1;
         QList<QTime> spoj2;
         QList<QTime> spoj3;

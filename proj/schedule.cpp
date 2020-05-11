@@ -9,11 +9,19 @@ Schedule::Schedule(QVector<Path*>paths, QGraphicsScene *scene) {
     this->drive4 = new Drive(paths.at(3), scene);
     this->drive5 = new Drive(paths.at(4), scene);
 
+
     this->path1=paths.size()>0?paths.at(0):nullptr;
     this->path2=paths.size()>1?paths.at(1):nullptr;
     this->path3=paths.size()>2?paths.at(2):nullptr;
     this->path4=paths.size()>3?paths.at(3):nullptr;
     this->path5=paths.size()>4?paths.at(4):nullptr;
+
+    pathNames<<(path1 != nullptr?path1->getName():"nothing");
+    pathNames<<(path2 != nullptr?path2->getName():"nothing");
+    pathNames<<(path3 != nullptr?path3->getName():"nothing");
+    pathNames<<(path4 != nullptr?path4->getName():"nothing");
+    pathNames<<(path5 != nullptr?path5->getName():"nothing");
+
     this->scene = scene;
 }
 
@@ -90,15 +98,7 @@ Schedule::~Schedule() {
 }
 
 void Schedule::loadTimes() {
-    QList<QString> pathNames;
-
-    pathNames<<(path1 != nullptr?path1->getName():"nothing");
-    pathNames<<(path2 != nullptr?path2->getName():"nothing");
-    pathNames<<(path3 != nullptr?path3->getName():"nothing");
-    pathNames<<(path4 != nullptr?path4->getName():"nothing");
-    pathNames<<(path5 != nullptr?path5->getName():"nothing");
-
-    QFile file("/home/dami/Dokumenty/2BITlet/ICP/stops.txt");
+    QFile file("stops.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         QString line;
@@ -154,3 +154,40 @@ void Schedule::loadTimes() {
         file.close();
     }
 }
+
+int Schedule::getDriveStreet(QString pathName)
+{
+    if(pathName==pathNames.at(0)){
+        return drive1->getNextStreet();
+    }
+    else if(pathName==pathName.at(1)){
+        return drive2->getNextStreet();
+    }
+    else if(pathName==pathName.at(2)){
+        return drive3->getNextStreet();
+    }
+    else if(pathName==pathName.at(3)){
+        return drive4->getNextStreet();
+    }
+    else if(pathName==pathName.at(4)){
+        return drive5->getNextStreet();
+    }
+    else{
+        return -1;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

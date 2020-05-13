@@ -36,10 +36,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 }
 
 MainWindow::~MainWindow() {
-    foreach(QGraphicsItem *line, miniMap->items())
-    {
-        delete line;
-    }
     delete myTime;
     delete sched;
     delete ui;
@@ -94,14 +90,7 @@ void MainWindow::init_scene2() {
 }
 
 void MainWindow::repaintMiniMap() {
-    if (!sceneItemsDeleted && (actualMiniMapPath != -1)) {
-        foreach(QGraphicsItem *line, miniMap->items())
-        {
-            miniMap->removeItem(line);
-        }
-        miniMap->setBackgroundBrush(Qt::white);
-        sceneItemsDeleted = true;
-    }
+    miniMap->clear();
     if (getPathNumber() == 0) {
         int nextStopIndex = sched->getDriveStreet(paths.at(actualMiniMapPath)->getName());
         int i = 0;
@@ -112,7 +101,7 @@ void MainWindow::repaintMiniMap() {
         text_name->setRotation(-45);
         text_name->setPos(x,y);
         miniMap->addItem(text_name);
-        foreach(QGraphicsItem *line, paths2.at(actualMiniMapPath)->getPath())
+        for(auto j:paths2.at(actualMiniMapPath)->getPath())
         {
             x = x + 60;
             ++i;
@@ -121,9 +110,7 @@ void MainWindow::repaintMiniMap() {
             text->setRotation(-45);
             text->setPos(x,y);
             miniMap->addItem(text);
-            miniMap->addItem(line);
         }
-        sceneItemsDeleted = false;
         miniMap->addEllipse(QRectF((nextStopIndex * 60) -5, 15, 8, 8), QPen({Qt::red},9));
         auto *text = new QGraphicsTextItem("Next stop");
         text->setPos((nextStopIndex * 60) -35, 40);

@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #ifndef MYLINEITEM_H
 #define MYLINEITEM_H
 

@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QGraphicsScene>
@@ -29,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->spdDownBtn, SIGNAL(clicked()), this, SLOT(speedDown()));
     connect(ui->spdRevBtn, SIGNAL(clicked()), this, SLOT(speedReverse()));
 
-    connect(myTimer, SIGNAL(timeout()), this, SLOT(repaintMiniMap()));
+   connect(myTimer, SIGNAL(timeout()), this, SLOT(repaintMiniMap()));
 }
 
 MainWindow::~MainWindow() {

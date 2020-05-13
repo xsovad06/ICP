@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #ifndef MYSCENE2_H
 #define MYSCENE2_H
 

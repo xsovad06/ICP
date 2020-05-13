@@ -1,48 +1,49 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "myscene.h"
 
 MyScene::MyScene(QObject *parent) : QGraphicsScene(parent) {}
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    for (auto *item: items(event->scenePos()))
+    if(auto item = itemAt(event->scenePos(),QTransform(1,1,1,1,1,1)))
     {
-        if (auto *street = dynamic_cast<MyLineItem*> (item); street) {
-            for(int i=0;i<paths.size();++i)
+        for(int i=0;i<paths.size();++i)
+        {
+            foreach(MyLineItem *line, paths.at(i)->getPath())
             {
-                foreach(MyLineItem *line, paths.at(i)->getPath())
-                {
-                   if (line == street) {
-                       // If not highlighted
-                       if (!pathHighlighted) {
+               if (line == item) {
+                   // If not highlighted
+                   if (!pathHighlighted) {
+                       // Highlighted new path
+                       paths.at(i)->setPathWidth(7, 9);
+                       paths.at(i)->setHighlighted(true);
+                       pathHighlighted = !pathHighlighted;
+                       highlighted_name = paths.at(i)->getName();
+                       pathHighlightedIndex = i;
+                   }
+                   // If highlighted
+                   else {
+                       // Clicked on highlighted path
+                       if (paths.at(i)->getHighlighted()) {
+                           // Unhighlighted previous path
+                           paths.at(i)->setPathWidth(4, 6);
+                           paths.at(i)->setHighlighted(false);
+                           pathHighlighted = !pathHighlighted;
+                       }
+                       // Clicked on other path than highlighted one
+                       else {
+                           // Unhighlighted previous path
+                           paths.at(pathHighlightedIndex)->setPathWidth(4, 6);
+                           paths.at(pathHighlightedIndex)->setHighlighted(false);
                            // Highlighted new path
                            paths.at(i)->setPathWidth(7, 9);
                            paths.at(i)->setHighlighted(true);
-                           pathHighlighted = !pathHighlighted;
                            highlighted_name = paths.at(i)->getName();
                            pathHighlightedIndex = i;
                        }
-                       // If highlighted
-                       else {
-                           // Clicked on highlighted path
-                           if (paths.at(i)->getHighlighted()) {
-                               // Unhighlighted previous path
-                               paths.at(i)->setPathWidth(4, 6);
-                               paths.at(i)->setHighlighted(false);
-                               pathHighlighted = !pathHighlighted;
-                           }
-                           // Clicked on other path than highlighted one
-                           else {
-                               // Unhighlighted previous path
-                               paths.at(pathHighlightedIndex)->setPathWidth(4, 6);
-                               paths.at(pathHighlightedIndex)->setHighlighted(false);
-                               // Highlighted new path
-                               paths.at(i)->setPathWidth(7, 9);
-                               paths.at(i)->setHighlighted(true);
-                               highlighted_name = paths.at(i)->getName();
-                               pathHighlightedIndex = i;
-                           }
-                       }
                    }
-                }
+               }
             }
         }
     }

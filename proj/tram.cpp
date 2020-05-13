@@ -1,10 +1,13 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "tram.h"
 #include <QtDebug>
 #include <QPen>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 
-Tram::Tram(QPointF *start, QPointF *end, float loc) :
+Tram::Tram(QPointF *start, QPointF *end, float loc, QGraphicsItem *parent) :
     QObject(), QGraphicsEllipseItem(parent) {
     this->line = {*start, *end};
     this->loc = loc;

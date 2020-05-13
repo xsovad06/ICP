@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
 
@@ -53,7 +56,7 @@ class Schedule {
 
     private:
         QMap <QTime,Path*> allSpojs;    /*!< QMap of ride time and a path */
-        QGraphicsScene *scene;          /*!< Pointer to scene with all objects */
+        QGraphicsScene *scene;          /*!< Pointer to scene where trams will be drawn */
         QList<QString> pathNames;       /*!< QList of path names */
         QList<QTime> spoj1;             /*!< QList of start times for path1 */
         QList<QTime> spoj2;             /*!< QList of start times for path2 */

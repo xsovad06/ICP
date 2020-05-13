@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "drive.h"
 
 Drive::Drive(Path * path, QGraphicsScene *scene) {

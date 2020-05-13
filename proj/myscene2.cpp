@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "myscene2.h"
 
 MyScene2::MyScene2(QObject *parent) : QGraphicsScene(parent) {}

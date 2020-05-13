@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #ifndef TRAM_H
 #define TRAM_H
 
@@ -38,8 +41,9 @@ class Tram : public QObject, public QGraphicsEllipseItem {
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR) override;
 
     private:
-        QLineF line;    /*< Atribute representing street */
-        float loc;      /*< Atribute representing position of tram */
+        QLineF line;    /*!< Atribute representing street */
+        float loc;      /*!< Atribute representing position of tram */
+
 
 };
 

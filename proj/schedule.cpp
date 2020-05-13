@@ -1,3 +1,6 @@
+/* Autori : Samuel Križan   <xkriza06>
+ *          Damián Sova     <xsovad06>
+*/
 #include "schedule.h"
 
 #define WAITONEND 30
@@ -84,7 +87,6 @@ Schedule::~Schedule() {
     delete drive3;
     delete drive4;
     delete drive5;
-
 }
 
 void Schedule::loadTimes() {

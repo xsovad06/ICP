@@ -40,6 +40,8 @@ MainWindow::~MainWindow() {
     {
         delete line;
     }
+    delete myTime;
+    delete sched;
     delete ui;
 }
 

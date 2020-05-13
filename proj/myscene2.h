@@ -18,6 +18,8 @@ class MyScene2 : public QGraphicsScene {
     public:
         //! A constructor.
         explicit MyScene2(QObject *parent = nullptr);
+        //! A Destructor.
+        ~MyScene2();
         //! Method for creating path.
         /*!
         Used for creating json file with street positions.

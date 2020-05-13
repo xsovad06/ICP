@@ -279,3 +279,12 @@ void MyScene::loadLinesFromFile() {
 QVector<Path*> MyScene::getPaths() {
     return paths;
 }
+
+MyScene::~MyScene() {
+    delete paths[0];
+    delete paths[1];
+    delete paths[2];
+    delete paths[3];
+    delete paths[4];
+}
+

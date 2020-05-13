@@ -24,6 +24,8 @@ class Path : public QObject {
           \param clr color of the path
         */
         Path(QString newName, QList<QLine> lines, QColor clr, QObject *parent = nullptr);
+        //! A Destructor.
+        ~Path();
         //! Get size of the path.
         /*!
           \return integer equals to the number of streets

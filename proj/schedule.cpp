@@ -33,50 +33,60 @@ void Schedule::start(QTime actTime, bool timeRev) {
     {
         if ((sTime <= actTime) && (actTime <= sTime.addSecs(path1->getTotalTime()))) {
             drive1->move(timeRev);
+            break;
         }
         else if (sTime.addSecs(path1->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path1->getTotalTime() * 2 + WAITONEND)) {
             drive1->moveBack(timeRev);
+            break;
         }
     }
     for(auto sTime : spoj2)
     {
         if ((sTime <= actTime) && (actTime <= sTime.addSecs(path2->getTotalTime()))) {
             drive2->move(timeRev);
+            break;
         }
         else if (sTime.addSecs(path2->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path2->getTotalTime() * 2 + WAITONEND)) {
             drive2->moveBack(timeRev);
+            break;
         }
     }
     for(auto sTime : spoj3)
     {
         if ((sTime <= actTime) && (actTime <= sTime.addSecs(path3->getTotalTime()))) {
             drive3->move(timeRev);
+            break;
         }
         else if (sTime.addSecs(path3->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path3->getTotalTime() * 2 + WAITONEND)) {
             drive3->moveBack(timeRev);
+            break;
         }
     }
     for(auto sTime : spoj4)
     {
         if ((sTime <= actTime) && (actTime <= sTime.addSecs(path4->getTotalTime()))) {
             drive4->move(timeRev);
+            break;
         }
         else if (sTime.addSecs(path4->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path4->getTotalTime() * 2 + WAITONEND)) {
             drive4->moveBack(timeRev);
+            break;
         }
     }
     for(auto sTime : spoj5)
     {
         if ((sTime <= actTime) && (actTime <= sTime.addSecs(path5->getTotalTime()))) {
             drive5->move(timeRev);
+            break;
         }
         else if (sTime.addSecs(path5->getTotalTime() + WAITONEND) <= actTime &&
                 actTime <= sTime.addSecs(path5->getTotalTime() * 2 + WAITONEND)) {
             drive5->moveBack(timeRev);
+            break;
         }
     }
 }

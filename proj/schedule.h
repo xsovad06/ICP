@@ -55,7 +55,6 @@ class Schedule {
         int getDriveStreet(QString pathName);
 
     private:
-        QMap <QTime,Path*> allSpojs;    /*!< QMap of ride time and a path */
         QGraphicsScene *scene;          /*!< Pointer to scene where trams will be drawn */
         QList<QString> pathNames;       /*!< QList of path names */
         QList<QTime> spoj1;             /*!< QList of start times for path1 */

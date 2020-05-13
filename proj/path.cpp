@@ -49,3 +49,10 @@ bool Path::getHighlighted() {
 void Path::setHighlighted(bool value) {
     highlighted = value;
 }
+Path::~Path()
+{
+    for(auto line: this->path)
+    {
+        delete line;
+    }
+}

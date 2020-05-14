@@ -42,8 +42,8 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::init_scene() {
-    auto *map_scene = new MyScene(ui->graphicsView);
-    ui->graphicsView->setScene(map_scene);
+    auto *map = new MyScene(ui->graphicsView);
+    ui->graphicsView->setScene(map);
 
 /******************* Create and save mini map **********************/
   /*map_scene->createStreet1();
@@ -54,18 +54,18 @@ void MainWindow::init_scene() {
     map_scene->toFile();*/
 
 /************************* Load mini map ***************************/
-    map_scene->loadLinesFromFile();
-    paths = map_scene->getPaths();
+    map->loadLinesFromFile();
+    paths = map->getPaths();
 /*******************************************************************/
 
     for(int i = 0; i < paths.size(); ++i)
     {
         foreach(QGraphicsItem *line, paths.at(i)->getPath())
         {
-            map_scene->addItem(line);
+            map->addItem(line);
         }
     }
-    map = map_scene;
+    this->map = map;
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 

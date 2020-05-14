@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1000</width>
-    <height>638</height>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -232,8 +232,17 @@ color: #FFF</string>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="leftMargin">
+         <number>9</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="bottomMargin">
+           <number>12</number>
+          </property>
           <item>
            <widget class="QPushButton" name="spdDownBtn">
             <property name="styleSheet">
@@ -289,7 +298,7 @@ color: #FFF;</string>
           <property name="minimumSize">
            <size>
             <width>90</width>
-            <height>0</height>
+            <height>73</height>
            </size>
           </property>
           <property name="font">

@@ -43,8 +43,6 @@ class Tram : public QObject, public QGraphicsEllipseItem {
     private:
         QLineF line;    /*!< Atribute representing street */
         float loc;      /*!< Atribute representing position of tram */
-
-
 };
 
 #endif // TRAM_H

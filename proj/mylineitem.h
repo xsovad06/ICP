@@ -5,28 +5,38 @@
 #define MYLINEITEM_H
 
 #include <QGraphicsLineItem>
-//!  Class represents one street.
+//!  Class represents one street(One line).
+/*!
+ * \brief The MyLineItem class
+ */
 class MyLineItem : public QGraphicsLineItem {
     public:
         //! A constructor.
         /*!
-          Save color to the class atribute and set pen parameters.
-          \param color street color
-        */
+         * \brief MyLineItem
+         * Save color to the class atribute and set pen parameters.
+         * \param color represents street color
+         * \param parent
+         */
         explicit MyLineItem(QColor color = Qt::black, QGraphicsItem *parent = nullptr);
         //! Method for changing pen width.
         /*!
-          Set pen width for street and for stop
-          \param penWidth width of the street
-          \param penWidthStop width of the stop
-        */
+         * \brief setPenWidth
+         * Set pen width for street and for stop
+         * \param penWidth width of the street
+         * \param penWidthStop width of the stop
+         */
         void setPenWidth(int penWidth, int penWidthStop);
 
     protected:
-        //! Method paint street with stop at the begining.
+        //! Method paint street with stops at the begining and end.
         /*!
-          Overriden method for painting.
-        */
+         * \brief paint
+         * Overriden method for painting.
+         * \param painter
+         * \param option
+         * \param widget
+         */
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = Q_NULLPTR) override;
 
     private:

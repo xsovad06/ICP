@@ -74,18 +74,18 @@ class MainWindow : public QMainWindow {
          * Load data about paths from file, stores data about paths.
          */
         void init_scene2();
-        Ui::MainWindow *ui;             /*!< Pointer to instace of object MainWindow, main application object*/
-        QTimer *myTimer;                /*!< Pointer to instace of object QTimer*/
-        QTime *myTime;                  /*!< Pointer to instace of object QTime*/
-        float timeSpeed;                /*!< Value represent speed of time flow*/
-        bool timeRev = false;           /*!< Bool represents time reverse flow*/
-        QVector <Path*> paths;          /*!< Vector of list of each street in the map*/
-        QVector <Path*> paths2;         /*!< Vector of list of each street in the minimap*/
-        Schedule *sched;                /*!< Pointer to instace of object Schedule*/
-        int actualMiniMapPath = -1;     /*!< Index od highlighted path in the map*/
-        bool sceneItemsDeleted = false; /*!< Bool represents deleted items in minimap*/
-        MyScene* map;                   /*!< Pointer to instace of object MyScene, Map scene*/
-        MyScene2* miniMap;              /*!< Pointer to instace of object MyScene2, MiniMap scene*/
+        Ui::MainWindow *ui;                 /*!< Pointer to instace of object MainWindow, main application object*/
+        QTimer *myTimer;                    /*!< Pointer to instace of object QTimer*/
+        QTime *myTime;                      /*!< Pointer to instace of object QTime*/
+        float timeSpeed;                    /*!< Value represent speed of time flow*/
+        bool timeRev = false;               /*!< Bool represents time reverse flow*/
+        QVector <Path*> paths;              /*!< Vector of list of each street in the map*/
+        QVector <Path*> paths2;             /*!< Vector of list of each street in the minimap*/
+        Schedule *sched;                    /*!< Pointer to instace of object Schedule*/
+        int actualMiniMapPath = -1;         /*!< Index od highlighted path in the map*/
+        bool sceneItemsDeleted = false;     /*!< Bool represents deleted items in minimap*/
+        MyScene* map;                       /*!< Pointer to instace of object MyScene, Map scene*/
+        MyScene2* miniMap;                  /*!< Pointer to instace of object MyScene2, MiniMap scene*/
 
     private slots:
         //! Slot for zoom in button.

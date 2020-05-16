@@ -29,4 +29,4 @@ copy:
 	cp -r examples/* src/build
 
 doxygen:
-	doxygen doxconf
+	doxygen doc/Doxyfile

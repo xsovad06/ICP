@@ -9,7 +9,7 @@ NAME=xkriza06-xsovad06
 compile: update
 	cd src/build && make -f qMakefile
 
-run: compile
+run: compile copy-examples
 	cd src/build && ./ICP
 
 update: ICP.pro copy
@@ -19,17 +19,14 @@ doxygen:
 	doxygen src/proj/Doxyfile
 
 clean:
-	cd src/build && rm -f *.cpp 
-	cd src/build && rm -f *.h
-	cd src/build && rm -f *.o
-	cd src/build && rm -f proj
-	cd src/build && rm -f *.txt
-	cd src/build && rm -f *.ui
-	cd src/build && rm -f Doxyfile ICP qMakefile
+	cd src/build && rm -f *
 	rm -rf doc/
 
 pack: clean
 	zip -r ${NAME}.zip ./*
+
+copy-examples:
+	cp -r examples/* src/build
 
 copy:
 	cp -r src/proj/* src/build

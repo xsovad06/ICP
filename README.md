@@ -3,7 +3,7 @@
 
 Commands
 ---------------------------------------------------
-In folder final use commad:/n
+In folder final use commad:'\n'
 	'make'          -> compilation
 	'make run'      -> run application
 	'make doxygen'  -> Generate documentation
@@ -13,8 +13,8 @@ In folder final use commad:/n
 
 Preparations
 ---------------------------------------------------
-Using Linux(Ubuntu)/n
-Installation of features:/n
+Using Linux(Ubuntu)'\n'
+Installation of features:'\n'
 	-> qmake:   sudo apt install qtchooser
 				sudo apt-get install -y qt5-defaul
 	-> doxygen: sudo apt-get install -y doxygen

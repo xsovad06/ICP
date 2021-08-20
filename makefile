@@ -7,26 +7,26 @@
 NAME=xkriza06-xsovad06
 
 compile: update
-	cd src/build && make -f qMakefile
+	cd build && make -f qMakefile
 
 run: compile
-	cd src/build && ./ICP
+	cd build && ./ICP
 
 update: copy
-	cd src/build && qmake ICP.pro -o qMakefile
+	cd build && qmake ICP.pro -o qMakefile
 
 doxygen:
-	doxygen src/proj/Doxyfile
+	doxygen proj/Doxyfile
 
 clean:
-	cd src/build && rm -f *
+	cd build && rm -f *
 	rm -rf doc/
 
 pack: clean
 	zip -r ${NAME}.zip ./*
 
 copy: copy-examples
-	cp -r src/proj/* src/build
+	cp -r proj/* build
 
 copy-examples:
-	cp -r examples/* src/build
+	cp -r examples/* build

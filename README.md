@@ -1,4 +1,4 @@
-ICP 2020 Project
+ICP 2020 Project - Public transport simulation
 ==========================
 Application for simulation trams driving in the virtual city. When looking for next stop of the tram, just click on apropriate track and it will show in the minimap. For high simulation speed use `2x >>` button and set it to maximal simulation speed(1024x). 
 

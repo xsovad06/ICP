@@ -5,25 +5,25 @@ Application for simulation trams driving in the virtual city. When looking for n
 Created at FIT VUT Brno, 2020
 
 Authors
-=======
+=======================================================
 Samuel Križan   <xkriza06>
 Damián Sova     <xsovad06>
 
-Compilation
-===========
-To compile the program you can run command `make`.
+Preparations
+=======================================================
+Using Linux(Ubuntu)
+Installation of features:
+	-> qmake:	sudo apt install qtchooser
+				sudo apt-get install -y qt5-defaul
+	-> doxygen:	sudo apt-get install -y doxygen
 
-Run the application
-===========
-To run the application you can just run command `make run`.
-
-Cleaning
-===========
-To compile the program you can run command `make clean`.
-
-Generate documentation
-===========
-To generate the documentation you can run command `make doxygen`.
-For creating zip you can use commad `make pack`.
+Commands
+=======================================================
+In folder final use commad:
+	'make'          -> compilation
+	'make run'      -> run application
+	'make doxygen'  -> Generate documentation
+	'make clean'    -> Remove all files from src/build/ and doc/
+	'make pack'     -> Create zip file
 
 Have a nice simulation experience.
